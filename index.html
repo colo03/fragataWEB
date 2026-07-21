@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Galería Fragata — Galería itinerante nocturna</title>
+  <meta name="description" content="[Placeholder SEO] Fragata es una galería de arte itinerante nocturna. Reemplazar por descripción real." />
+
+  <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+
+  <meta property="og:title" content="Galería Fragata" />
+  <meta property="og:description" content="[Placeholder] Galería itinerante nocturna." />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Caveat:wght@500;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <img src="assets/isotipo_white.png" alt="" class="preloader__flag" />
+  </div>
+
+  <a href="#inicio" class="skip-link">Saltar al contenido</a>
+
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="#inicio" class="nav__brand" aria-label="Galería Fragata — inicio">
+        <img src="assets/isotipo_white.png" alt="" class="nav__flag" />
+        <img src="assets/fragata_white.png" alt="Galería Fragata" class="nav__wordmark" />
+      </a>
+
+      <nav class="nav__links" id="navLinks" aria-label="Navegación principal">
+        <a href="#inicio" class="nav__link is-active">Inicio</a>
+        <a href="#artistas" class="nav__link">Artistas</a>
+        <a href="#nosotros" class="nav__link">Nosotros</a>
+        <a href="#eventos" class="nav__link">Eventos</a>
+        <a href="#contacto" class="nav__link nav__link--cta">Contacto</a>
+      </nav>
+
+      <button class="nav__toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero__grain" aria-hidden="true"></div>
+
+      <img src="assets/isotipo_white.png" alt="" class="hero__flag" data-parallax="0.15" aria-hidden="true" />
+
+      <div class="hero__content">
+        <h1 class="hero__title" data-reveal>
+          <span class="hero__script">Galería</span>
+          <img src="assets/fragata_white.png" alt="Fragata" class="hero__wordmark" />
+        </h1>
+      </div>
+
+      <a href="#nosotros" class="hero__scroll" aria-label="Bajar">
+      </a>
+    </section>
+
+    <section class="about" id="nosotros">
+      <div class="about__inner">
+        <p class="section-label" data-reveal>01 — Nosotros</p>
+        <h2 class="about__statement" data-reveal>
+          [Placeholder]
+        </h2>
+        <p class="about__lead" data-reveal>
+          [Placeholder] 
+        </p>
+
+        <div class="social-links" data-reveal>
+          <span class="social-links__label">Seguinos</span>
+          <a href="#" class="social-link" target="_blank" rel="noopener">Instagram <span>↗</span></a>
+          <a href="#" class="social-link" target="_blank" rel="noopener">TikTok <span>↗</span></a>
+          <a href="#" class="social-link" target="_blank" rel="noopener">Spotify <span>↗</span></a>
+          <a href="mailto:[correo@fragata.com]" class="social-link">Email <span>↗</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="artists" id="artistas">
+      <div class="section-head">
+        <div>
+          <p class="section-label" data-reveal>02 — Artistas</p>
+          <h2 class="section-title" data-reveal>Nuestros artistas</h2>
+        </div>
+        <!-- TODO: enlazar a la página "Artistas por disciplina" -->
+        <a href="#" class="link-arrow" data-reveal>Ver todos por disciplina <span>→</span></a>
+      </div>
+
+      <div class="artists__grid">
+        <a href="#" class="artist-card" data-reveal>
+          <div class="artist-card__photo" data-placeholder="Foto del artista"></div>
+          <div class="artist-card__body">
+            <h3 class="artist-card__name">[Nombre del artista]</h3>
+            <p class="artist-card__disc">[Disciplina — ej. Pintura]</p>
+          </div>
+        </a>
+
+        <a href="#" class="artist-card" data-reveal>
+          <div class="artist-card__photo" data-placeholder="Foto del artista"></div>
+          <div class="artist-card__body">
+            <h3 class="artist-card__name">[Nombre del artista]</h3>
+            <p class="artist-card__disc">[Disciplina — ej. Fotografía]</p>
+          </div>
+        </a>
+
+        <a href="#" class="artist-card" data-reveal>
+          <div class="artist-card__photo" data-placeholder="Foto del artista"></div>
+          <div class="artist-card__body">
+            <h3 class="artist-card__name">[Nombre del artista]</h3>
+            <p class="artist-card__disc">[Disciplina — ej. Instalación]</p>
+          </div>
+        </a>
+
+        <a href="#" class="artist-card" data-reveal>
+          <div class="artist-card__photo" data-placeholder="Foto del artista"></div>
+          <div class="artist-card__body">
+            <h3 class="artist-card__name">[Nombre del artista]</h3>
+            <p class="artist-card__disc">[Disciplina — ej. Escultura]</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="events" id="eventos">
+      <div class="section-head">
+        <div>
+          <p class="section-label" data-reveal>03 — Eventos</p>
+          <h2 class="section-title" data-reveal>Próximo evento</h2>
+        </div>
+      </div>
+
+      <article class="event-feature" data-reveal>
+        <div class="event-feature__media" data-placeholder="Afiche del evento"></div>
+        <div class="event-feature__info">
+          <span class="tag">Próximo</span>
+          <h3 class="event-feature__title">[Nombre de la edición / muestra]</h3>
+          <p class="event-feature__desc">
+            [Placeholder]
+          </p>
+          <dl class="event-feature__meta">
+            <div><dt>Fecha</dt><dd>[00 · MES · 2026]</dd></div>
+            <div><dt>Lugar</dt><dd>[Dirección — Ciudad]</dd></div>
+            <div><dt>Acceso</dt><dd>[Entrada / RSVP]</dd></div>
+          </dl>
+          <a href="#contacto" class="btn btn--primary">Reservar lugar</a>
+        </div>
+      </article>
+
+      <div class="events__past">
+        <p class="section-label" data-reveal>Eventos pasados</p>
+        <div class="past-grid">
+          <a href="#" class="past-card" data-reveal>
+            <div class="past-card__media" data-placeholder="Registro"></div>
+            <div class="past-card__body">
+              <h4 class="past-card__title">[Nombre del evento]</h4>
+              <p class="past-card__meta">[MES 2026] · [Ciudad]</p>
+              <span class="past-card__cta">Ver registro <span>→</span></span>
+            </div>
+          </a>
+
+          <a href="#" class="past-card" data-reveal>
+            <div class="past-card__media" data-placeholder="Registro"></div>
+            <div class="past-card__body">
+              <h4 class="past-card__title">[Nombre del evento]</h4>
+              <p class="past-card__meta">[MES 2026] · [Ciudad]</p>
+              <span class="past-card__cta">Ver registro <span>→</span></span>
+            </div>
+          </a>
+
+          <a href="#" class="past-card" data-reveal>
+            <div class="past-card__media" data-placeholder="Registro"></div>
+            <div class="past-card__body">
+              <h4 class="past-card__title">[Nombre del evento]</h4>
+              <p class="past-card__meta">[MES 2026] · [Ciudad]</p>
+              <span class="past-card__cta">Ver registro <span>→</span></span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contacto">
+      <div class="contact__grid">
+        <div class="contact__col">
+          <p class="section-label" data-reveal>04 — Contacto</p>
+          <h2 class="contact__title" data-reveal>Sumate a nuestro newsletter</h2>
+          <p class="contact__lead" data-reveal>
+            [Placeholder] Dejanos tu correo y te avisamos dónde y cuándo abrimos la próxima noche.
+          </p>
+          <form class="contact__form" data-reveal onsubmit="return false;">
+            <input type="email" name="email" placeholder="tu@correo.com" aria-label="Correo electrónico" required />
+            <button type="submit" class="btn btn--primary">Quiero enterarme</button>
+          </form>
+          <p class="contact__note">[Placeholder] Sin spam. Solo avisos de eventos.</p>
+        </div>
+
+        <div class="contact__col contact__col--work">
+          <h2 class="contact__title" data-reveal>Trabajá con nosotros</h2>
+          <p class="contact__lead" data-reveal>
+            [Placeholder] ¿Sos artista, tenés un espacio para una próxima sede o querés
+            proponer una colaboración? Escribinos.
+          </p>
+          <div class="contact__actions" data-reveal>
+            <a href="mailto:[correo@fragata.com]" class="btn btn--ghost">[correo@fragata.com]</a>
+            <a href="#" class="btn btn--ghost">WhatsApp [+54 9 ...]</a>
+          </div>
+          <div class="social-links" data-reveal>
+            <span class="social-links__label">Seguinos</span>
+            <a href="#" class="social-link" target="_blank" rel="noopener">Instagram <span>↗</span></a>
+            <a href="#" class="social-link" target="_blank" rel="noopener">TikTok <span>↗</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <img src="assets/isologo_white.png" alt="Galería Fragata" class="footer__logo" />
+        <p class="footer__tagline">Galería itinerante nocturna</p>
+      </div>
+
+      <nav class="footer__nav" aria-label="Navegación de pie">
+        <a href="#inicio">Inicio</a>
+        <a href="#artistas">Artistas</a>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#eventos">Eventos</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+
+      <div class="footer__contact">
+        <a href="mailto:[correo@fragata.com]">[correo@fragata.com]</a>
+        <a href="#" aria-label="Instagram">Instagram ↗</a>
+        <a href="#" aria-label="WhatsApp">[+54 9 ...] ↗</a>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <span>© <span id="year">2026</span> Galería Fragata. [Todos los derechos reservados].</span>
+      <span>Sitio en construcción — template base</span>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
