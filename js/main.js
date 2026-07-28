@@ -188,4 +188,126 @@
       });
     }
   }
+
+  /* -------------------- Artistas: Búsqueda, filtro y orden -------------------- */
+  const artistSearch = document.getElementById("artistSearch");
+  const filterDiscipline = document.getElementById("filterDiscipline");
+  const btnSortToggle = document.getElementById("btnSortToggle");
+  const artistsGrid = document.getElementById("artistsGrid");
+  const artistsEmpty = document.getElementById("artistsEmpty");
+  const labelSort = document.getElementById("labelSort");
+
+  // Solo ejecutar si estamos en una página con la grilla de artistas
+  if (artistsGrid) {
+    // Datos de ejemplo. En un caso real, vendrían de un backend/API.
+    const artistsData = [
+      { name: "Ana Pérez", discipline: "Pintura", artwork: "Serenidad Cósmica", photo: "placeholder" },
+      { name: "Carlos Gómez", discipline: "Fotografía", artwork: "Reflejos Urbanos", photo: "placeholder" },
+      { name: "Sofía Rossi", discipline: "Instalación", artwork: "Laberinto de Ecos", photo: "placeholder" },
+      { name: "Javier Núñez", discipline: "Escultura", artwork: "Forma Fluida", photo: "placeholder" },
+      { name: "Valentina Rojas", discipline: "Pintura", artwork: "Retrato del Viento", photo: "placeholder" },
+      { name: "Mateo Díaz", discipline: "Fotografía", artwork: "Naturaleza Oculta", photo: "placeholder" },
+      { name: "Lucía Fernández", discipline: "Instalación", artwork: "Diálogos de Luz", photo: "placeholder" },
+      { name: "Diego Morales", discipline: "Escultura", artwork: "Tensión y Equilibrio", photo: "placeholder" },
+    ];
+
+    let currentSortOrder = "asc"; // 'asc' o 'desc'
+
+    // Función para renderizar los artistas en la grilla
+    const renderArtists = (artists) => {
+      artistsGrid.innerHTML = ""; // Limpiar la grilla
+
+      if (artists.length === 0) {
+        artistsEmpty.style.display = "block";
+      } else {
+        artistsEmpty.style.display = "none";
+      }
+
+      artists.forEach((artist) => {
+        const card = document.createElement("a");
+        card.href = "#"; // TODO: Enlazar a perfil de artista
+        card.className = "artist-card";
+        card.innerHTML = `
+          <div class="artist-card__photo" data-placeholder="Foto de ${artist.name}"></div>
+          <div class="artist-card__body">
+            <h3 class="artist-card__name">${artist.name}</h3>
+            <p class="artist-card__disc">${artist.discipline}</p>
+            <p class="artist-card__artwork">Obra: "${artist.artwork}"</p>
+          </div>
+        `;
+        // Para la animación de entrada
+        card.classList.add("is-visible");
+        artistsGrid.appendChild(card);
+      });
+    };
+
+    // Función principal para filtrar y ordenar
+    const updateView = () => {
+      const searchTerm = artistSearch.value.toLowerCase();
+      const selectedDiscipline = filterDiscipline.value;
+
+      let filteredArtists = artistsData.filter((artist) => {
+        const matchesSearch =
+          artist.name.toLowerCase().includes(searchTerm) ||
+          artist.discipline.toLowerCase().includes(searchTerm) ||
+          artist.artwork.toLowerCase().includes(searchTerm);
+
+        const matchesDiscipline =
+          selectedDiscipline === "all" || artist.discipline === selectedDiscipline;
+
+        return matchesSearch && matchesDiscipline;
+      });
+
+      // Ordenar
+      filteredArtists.sort((a, b) => {
+        if (currentSortOrder === "asc") {
+          return a.name.localeCompare(b.name);
+        } else {
+          return b.name.localeCompare(a.name);
+        }
+      });
+
+      renderArtists(filteredArtists);
+    };
+
+    // Event Listeners
+    artistSearch.addEventListener("input", updateView);
+    filterDiscipline.addEventListener("change", updateView);
+
+    btnSortToggle.addEventListener("click", () => {
+      currentSortOrder = currentSortOrder === "asc" ? "desc" : "asc";
+      
+      // Actualizar UI del botón
+      const icon = btnSortToggle.querySelector(".icon");
+      if (labelSort && icon) {
+        if (currentSortOrder === "asc") {
+          labelSort.textContent = "Artista: A - Z";
+          icon.textContent = "↓";
+        } else {
+          labelSort.textContent = "Artista: Z - A";
+          icon.textContent = "↑";
+        }
+      }
+      
+      updateView();
+    });
+
+    // Renderizado inicial
+    updateView();
+  }
+
+  // Eliminar las tarjetas hardcodeadas del HTML para evitar duplicados
+  const staticArtistGrid = document.querySelector('.artists__grid:not([id="artistsGrid"])');
+  if (staticArtistGrid) {
+    staticArtistGrid.remove();
+  }
+
+  // Asegurarse de que solo haya una grilla de artistas
+  const allGrids = document.querySelectorAll("#artistsGrid");
+  if (allGrids.length > 1) {
+    for (let i = 1; i < allGrids.length; i++) {
+      allGrids[i].remove();
+    }
+  }
+
 })();

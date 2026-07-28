@@ -47,6 +47,7 @@
       </button>
     </div>
   </header>
+
   <main>
     <section class="hero" id="inicio">
       <div class="hero__grain" aria-hidden="true"></div>
@@ -60,8 +61,7 @@
         </h1>
       </div>
 
-      <a href="#nosotros" class="hero__scroll" aria-label="Bajar">
-      </a>
+      <a href="#nosotros" class="hero__scroll" aria-label="Bajar"></a>
     </section>
 
     <section class="about" id="nosotros">
@@ -96,10 +96,10 @@
       <!-- PANEL DE BÚSQUEDA Y FILTROS OPTIMIZADO -->
       <div class="artists-filter" data-reveal>
         <div class="artists-filter__search">
-          <input
-            type="text"
-            id="artistSearch"
-            placeholder="Buscar por artista, obra, disciplina o técnica..."
+          <input 
+            type="text" 
+            id="artistSearch" 
+            placeholder="Buscar por artista, obra, disciplina o técnica..." 
             aria-label="Buscar artistas"
           />
         </div>
@@ -120,44 +120,15 @@
           </button>
         </div>
       </div>
-      <!-- GRILLA DE ARTISTAS (Renderizado por JS) -->
-      <div class="artists__grid" id="artistsGrid"></div>
+
+      <!-- GRILLA DE ARTISTAS ORIGINAL (Mantiene la clase original artists__grid) -->
+      <div class="artists__grid" id="artistsGrid">
+        <!-- Renderizado por JS -->
+      </div>
+
       <!-- Mensaje cuando no hay resultados -->
       <div class="artists__empty" id="artistsEmpty" style="display: none;">
         <p>No se encontraron artistas con los criterios seleccionados.</p>
-      </div>
-      <div class="artists__grid" id="artistsGrid">
-        <a href="#" class="artist-card" data-reveal>
-          <div class="artist-card__photo" data-placeholder="Foto del artista"></div>
-          <div class="artist-card__body">
-            <h3 class="artist-card__name">[Nombre del artista]</h3>
-            <p class="artist-card__disc">[Disciplina — ej. Pintura]</p>
-          </div>
-        </a>
-
-        <a href="#" class="artist-card" data-reveal>
-          <div class="artist-card__photo" data-placeholder="Foto del artista"></div>
-          <div class="artist-card__body">
-            <h3 class="artist-card__name">[Nombre del artista]</h3>
-            <p class="artist-card__disc">[Disciplina — ej. Fotografía]</p>
-          </div>
-        </a>
-
-        <a href="#" class="artist-card" data-reveal>
-          <div class="artist-card__photo" data-placeholder="Foto del artista"></div>
-          <div class="artist-card__body">
-            <h3 class="artist-card__name">[Nombre del artista]</h3>
-            <p class="artist-card__disc">[Disciplina — ej. Instalación]</p>
-          </div>
-        </a>
-
-        <a href="#" class="artist-card" data-reveal>
-          <div class="artist-card__photo" data-placeholder="Foto del artista"></div>
-          <div class="artist-card__body">
-            <h3 class="artist-card__name">[Nombre del artista]</h3>
-            <p class="artist-card__disc">[Disciplina — ej. Escultura]</p>
-          </div>
-        </a>
       </div>
     </section>
 
