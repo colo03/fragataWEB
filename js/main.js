@@ -141,4 +141,145 @@
       }
     });
   }
+
+/* -------------------- Módulo Buscador de Artistas -------------------- */
+const artistsData = [
+  {
+    id: 1,
+    nombre: "Lucía Marenco",
+    disciplina: "Pintura",
+    tecnica: "Óleo sobre lienzo",
+    obraDestacada: "Nocturno #4",
+    foto: "Foto del artista",
+    link: "#"
+  },
+  {
+    id: 2,
+    nombre: "Marcos Del Castillo",
+    disciplina: "Fotografía",
+    tecnica: "Analógica 35mm",
+    obraDestacada: "Luces errantes",
+    foto: "Foto del artista",
+    link: "#"
+  },
+  {
+    id: 3,
+    nombre: "Elena Rostova",
+    disciplina: "Instalación",
+    tecnica: "Escultura lumínica / Neón",
+    obraDestacada: "Fragmentos de sombra",
+    foto: "Foto del artista",
+    link: "#"
+  },
+  {
+    id: 4,
+    nombre: "Ariel Cohen",
+    disciplina: "Escultura",
+    tecnica: "Metal forjado",
+    obraDestacada: "Estructura I",
+    foto: "Foto del artista",
+    link: "#"
+  }
+];
+
+const grid = document.getElementById("artistsGrid");
+const searchInput = document.getElementById("artistSearch");
+const disciplineSelect = document.getElementById("filterDiscipline");
+const btnSortToggle = document.getElementById("btnSortToggle");
+const labelSort = document.getElementById("labelSort");
+const emptyMsg = document.getElementById("artistsEmpty");
+
+// Estados de ordenamiento para el botón alternante (Toggle)
+const sortModes = [
+  { id: "name-asc", label: "Artista: A - Z", icon: "↓" },
+  { id: "name-desc", label: "Artista: Z - A", icon: "↑" },
+  { id: "artwork-asc", label: "Obra: A - Z", icon: "↓" }
+];
+let currentSortIndex = 0;
+
+function renderArtists(list) {
+  if (!grid) return;
+  grid.innerHTML = "";
+
+  if (list.length === 0) {
+    if (emptyMsg) emptyMsg.style.display = "block";
+    return;
+  }
+
+  if (emptyMsg) emptyMsg.style.display = "none";
+
+  list.forEach((artist) => {
+    const card = document.createElement("a");
+    card.href = artist.link;
+    card.className = "artist-card";
+
+    card.innerHTML = `
+      <div class="artist-card__photo" data-placeholder="${artist.foto}"></div>
+      <div class="artist-card__body">
+        <h3 class="artist-card__name">${artist.nombre}</h3>
+        <p class="artist-card__disc">${artist.disciplina} — ${artist.tecnica}</p>
+        <p class="artist-card__artwork">"${artist.obraDestacada}"</p>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function filterAndSort() {
+  if (!searchInput) return;
+
+  const query = searchInput.value.toLowerCase().trim();
+  const discipline = disciplineSelect.value;
+  const sortBy = sortModes[currentSortIndex].id;
+
+  // 1. Filtrar (Búsqueda general + Disciplina)
+  let filtered = artistsData.filter((a) => {
+    const matchesSearch =
+      a.nombre.toLowerCase().includes(query) ||
+      a.disciplina.toLowerCase().includes(query) ||
+      a.tecnica.toLowerCase().includes(query) ||
+      a.obraDestacada.toLowerCase().includes(query);
+
+    const matchesDiscipline = discipline === "all" || a.disciplina === discipline;
+
+    return matchesSearch && matchesDiscipline;
+  });
+
+  // 2. Ordenar
+  filtered.sort((a, b) => {
+    if (sortBy === "name-asc") {
+      return a.nombre.localeCompare(b.nombre);
+    } else if (sortBy === "name-desc") {
+      return b.nombre.localeCompare(a.nombre);
+    } else if (sortBy === "artwork-asc") {
+      return a.obraDestacada.localeCompare(b.obraDestacada);
+    }
+    return 0;
+  });
+
+  // 3. Renderizar
+  renderArtists(filtered);
+}
+
+// Escuchar evento de clic en el botón toggle de orden
+if (btnSortToggle) {
+  btnSortToggle.addEventListener("click", () => {
+    currentSortIndex = (currentSortIndex + 1) % sortModes.length;
+    
+    // Actualizar interfaz del botón
+    labelSort.textContent = sortModes[currentSortIndex].label;
+    btnSortToggle.querySelector(".icon").textContent = sortModes[currentSortIndex].icon;
+
+    filterAndSort();
+  });
+}
+
+if (searchInput && grid) {
+  // Event listeners
+  searchInput.addEventListener("input", filterAndSort);
+  disciplineSelect.addEventListener("change", filterAndSort);
+
+  // Carga inicial
+  filterAndSort();
+}
 })();

@@ -541,11 +541,12 @@ button {
   transform: translate(2px, -2px);
 }
 
-/* ------------------------------ Artistas (roster) ------------------------------ */
+/* ------------------------------ Artistas (Sección y Grilla) ------------------------------ */
 .artists {
   padding: clamp(3rem, 8vw, 6rem) 0;
   border-top: 1px solid var(--line-soft);
 }
+
 .artists__grid {
   max-width: var(--maxw);
   margin: 0 auto;
@@ -554,34 +555,185 @@ button {
   grid-template-columns: repeat(4, 1fr);
   gap: 1.4rem;
 }
+
+/* Responsiveness para la grilla en tablets y celulares */
+@media (max-width: 1024px) {
+  .artists__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .artists__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .artists__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Tarjeta de Artista */
 .artist-card {
   display: block;
+  text-decoration: none;
+  color: inherit;
+  animation: fadeIn 0.4s var(--ease) forwards;
 }
+
 .artist-card__photo {
   aspect-ratio: 3 / 4;
   border-radius: var(--radius);
+  background-color: var(--bg-elev); 
   transition: transform 0.5s var(--ease), filter 0.5s var(--ease);
 }
+
 .artist-card:hover .artist-card__photo {
   transform: translateY(-6px);
   filter: brightness(1.15);
 }
+
 .artist-card__body {
   padding: 1rem 0.2rem 0;
 }
+
 .artist-card__name {
   font-size: 1.05rem;
   font-weight: 700;
+  color: var(--text);
   transition: color 0.25s var(--ease);
 }
+
 .artist-card:hover .artist-card__name {
   color: var(--white);
 }
+
 .artist-card__disc {
   font-size: 0.85rem;
   color: var(--text-dim);
 }
 
+.artist-card__artwork {
+  font-size: 0.8rem;
+  color: var(--text-faint);
+  font-style: italic;
+  margin-top: 0.2rem;
+}
+
+/* ------------------------------ Buscador y Filtros de Artistas ------------------------------ */
+.artists-filter {
+  max-width: var(--maxw);
+  margin: 0 auto 2.5rem;
+  padding: 0 var(--gutter);
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.artists-filter__search {
+  width: 100%;
+}
+
+.artists-filter__search input {
+  width: 100%;
+  padding: 0.8em 1.4em;
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  background: var(--bg-elev);
+  font: inherit;
+  color: var(--text);
+  font-size: 0.9rem;
+  transition: border-color 0.25s var(--ease);
+}
+
+.artists-filter__search input::placeholder {
+  color: var(--text-faint);
+}
+
+.artists-filter__search input:focus {
+  outline: none;
+  border-color: var(--white);
+}
+
+.artists-filter__controls {
+  display: flex;
+  gap: 0.6rem;
+  width: 100%;
+}
+
+.filter-select,
+.filter-btn-toggle {
+  flex: 1; 
+  padding: 0.8em 1em;
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  background: var(--bg-elev);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: border-color 0.25s var(--ease), background-color 0.25s var(--ease);
+}
+
+.filter-select:hover,
+.filter-select:focus,
+.filter-btn-toggle:hover {
+  border-color: var(--white);
+}
+
+.filter-select option {
+  background: var(--bg-card);
+  color: var(--text);
+}
+
+/* Escritorio */
+@media (min-width: 768px) {
+  .artists-filter {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .artists-filter__search {
+    flex: 1 1 360px;
+  }
+  .artists-filter__controls {
+    width: auto;
+    flex: 0 0 auto;
+  }
+  .filter-select,
+  .filter-btn-toggle {
+    flex: initial;
+  }
+}
+
+.artists__empty {
+  max-width: var(--maxw);
+  margin: 3rem auto;
+  padding: 0 var(--gutter);
+  text-align: center;
+  color: var(--text-dim);
+}
+
+/* Transición animada de filtrado */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 /* ------------------------------ Eventos ------------------------------ */
 .events {
   padding: clamp(4rem, 10vw, 8rem) 0;
