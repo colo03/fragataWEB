@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Galería Fragata — Agenda & Eventos</title>
+  
+  <!-- Tipografía y Estilos -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Hanken+Grotesk:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- Header / Navbar -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__brand">
+        <img src="assets/isologo_white.png" alt="Fragata" class="nav__flag" />
+        <img src="assets/fragata_white.png" alt="Galería Fragata" class="nav__wordmark" />
+      </a>
+      <div class="nav__links">
+        <a href="index.html" class="nav__link">Inicio</a>
+        <a href="artistas.html" class="nav__link">Artistas</a>
+        <a href="eventos.html" class="nav__link is-active">Eventos</a>
+        <a href="#contacto" class="nav__link nav__link--cta">Postularse</a>
+      </div>
+      <button class="nav__toggle" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Encabezado de la página -->
+    <header class="page-header">
+      <div class="page-header__inner">
+        <p class="section-label">Bitácora de muestras & fechas</p>
+        <h1 class="section-title">Agenda & Cronología</h1>
+      </div>
+    </header>
+
+    <!-- EVENTO DESTACADO (Próximo / En Curso) -->
+    <section class="featured-event">
+      <div class="featured-event__inner">
+        <div class="featured-event__badge">Próxima Edición</div>
+        
+        <div class="featured-event__grid">
+          <div class="featured-event__media" data-placeholder="Flyer / Visual del Evento"></div>
+          
+          <div class="featured-event__content">
+            <h2 class="featured-event__title">Nombre de la Próxima Exposición</h2>
+            
+            <dl class="featured-event__meta">
+              <div>
+                <dt>Fecha & Hora</dt>
+                <dd>Sábado 15 de Noviembre · 20:00 hs</dd>
+              </div>
+              <div>
+                <dt>Sede</dt>
+                <dd>Espacio Lavandería</dd>
+              </div>
+              <div>
+                <dt>Curaduría</dt>
+                <dd>Edición Nocturna #08</dd>
+              </div>
+            </dl>
+
+            <p class="featured-event__desc">
+              Breve descripción del concepto conceptual de la muestra, el ambiente y las disciplinas que van a converger durante la jornada.
+            </p>
+
+            <div class="featured-event__artists">
+              <span class="featured-event__artists-label">Artistas convocados:</span>
+              <p>Nombre Artista 1, Nombre Artista 2, Nombre Artista 3, Nombre Artista 4</p>
+            </div>
+
+            <div class="featured-event__actions">
+              <a href="#" class="btn btn--primary">Reservar Entrada</a>
+              <a href="#contacto" class="btn btn--ghost">Quiero Exponer</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LÍNEA DE TIEMPO (Eventos Pasados) -->
+    <section class="timeline-section">
+      <div class="timeline-section__inner">
+        <div class="timeline-header">
+          <h2 class="timeline-header__title">Ediciones Anteriores</h2>
+          <p class="timeline-header__desc">El historial de encuentros, intervenciones y muestras desde nuestros inicios.</p>
+        </div>
+
+        <div class="timeline">
+          <!-- Eje conector vertical -->
+          <div class="timeline__line"></div>
+
+          <!-- NODO 1 (Más reciente) -->
+          <article class="timeline-item">
+            <div class="timeline-item__node"></div>
+            <div class="timeline-item__card">
+              <header class="timeline-item__header">
+                <span class="timeline-item__date">Octubre 2025</span>
+                <span class="tag">Dickmann</span>
+              </header>
+              <h3 class="timeline-item__title">Muestra Colectiva Dickmann</h3>
+              <p class="timeline-item__desc">
+                Reseña breve de lo que fue el evento, la concurrencia y la temática trabajada en esta locación.
+              </p>
+              <div class="timeline-item__media" data-placeholder="Registro fotográfico Dickmann"></div>
+              <footer class="timeline-item__footer">
+                <span class="timeline-item__artists">Expusieron: Artista A, Artista B, Artista C</span>
+              </footer>
+            </div>
+          </article>
+
+          <!-- NODO 2 -->
+          <article class="timeline-item">
+            <div class="timeline-item__node"></div>
+            <div class="timeline-item__card">
+              <header class="timeline-item__header">
+                <span class="timeline-item__date">Julio 2025</span>
+                <span class="tag">Lavandería</span>
+              </header>
+              <h3 class="timeline-item__title">Noche de Arte & Sonido</h3>
+              <p class="timeline-item__desc">
+                Primera edición en el espacio Lavandería combinando artes visuales e instalaciones sonoras en vivo.
+              </p>
+              <div class="timeline-item__media" data-placeholder="Registro fotográfico Lavandería"></div>
+              <footer class="timeline-item__footer">
+                <span class="timeline-item__artists">Expusieron: Artista D, Artista E</span>
+              </footer>
+            </div>
+          </article>
+
+          <!-- NODO 3 (Muestra Inaugural) -->
+          <article class="timeline-item">
+            <div class="timeline-item__node"></div>
+            <div class="timeline-item__card">
+              <header class="timeline-item__header">
+                <span class="timeline-item__date">Marzo 2025</span>
+                <span class="tag">Sede Inaugural</span>
+              </header>
+              <h3 class="timeline-item__title">Edición Inaugural Fragata</h3>
+              <p class="timeline-item__desc">
+                El hito de apertura de la galería itinerante. Presentación del manifiesto y primera selección de obras.
+              </p>
+              <div class="timeline-item__media" data-placeholder="Registro fotográfico Inauguración"></div>
+              <footer class="timeline-item__footer">
+                <span class="timeline-item__artists">Expusieron: Artistas Fundadores</span>
+              </footer>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CALL TO ACTION (Postulación de Artistas) -->
+    <section class="cta-call" id="contacto">
+      <div class="cta-call__inner">
+        <p class="section-label">Convocatoria abierta</p>
+        <h2 class="cta-call__title">¿Querés presentar tu obra en la próxima edición?</h2>
+        <p class="cta-call__desc">Sumate al circuito itinerante de Galería Fragata. Recibimos propuestas visuales, sonoras y multidisciplinarias.</p>
+        <a href="mailto:contacto@galeriafragata.com" class="btn btn--primary">Enviar Portafolio</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__bottom">
+      <p>&copy; Galería Fragata. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
