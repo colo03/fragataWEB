@@ -142,144 +142,50 @@
     });
   }
 
-/* -------------------- Módulo Buscador de Artistas -------------------- */
-const artistsData = [
-  {
-    id: 1,
-    nombre: "Lucía Marenco",
-    disciplina: "Pintura",
-    tecnica: "Óleo sobre lienzo",
-    obraDestacada: "Nocturno #4",
-    foto: "Foto del artista",
-    link: "#"
-  },
-  {
-    id: 2,
-    nombre: "Marcos Del Castillo",
-    disciplina: "Fotografía",
-    tecnica: "Analógica 35mm",
-    obraDestacada: "Luces errantes",
-    foto: "Foto del artista",
-    link: "#"
-  },
-  {
-    id: 3,
-    nombre: "Elena Rostova",
-    disciplina: "Instalación",
-    tecnica: "Escultura lumínica / Neón",
-    obraDestacada: "Fragmentos de sombra",
-    foto: "Foto del artista",
-    link: "#"
-  },
-  {
-    id: 4,
-    nombre: "Ariel Cohen",
-    disciplina: "Escultura",
-    tecnica: "Metal forjado",
-    obraDestacada: "Estructura I",
-    foto: "Foto del artista",
-    link: "#"
-  }
-];
+  /* -------------------- Perfil de obra: "Me interesa esta obra" -------------------- */
+  const interestBtn = document.getElementById("interestBtn");
+  const interestForm = document.getElementById("interestForm");
 
-const grid = document.getElementById("artistsGrid");
-const searchInput = document.getElementById("artistSearch");
-const disciplineSelect = document.getElementById("filterDiscipline");
-const btnSortToggle = document.getElementById("btnSortToggle");
-const labelSort = document.getElementById("labelSort");
-const emptyMsg = document.getElementById("artistsEmpty");
+  if (interestBtn && interestForm) {
+    const cta = interestBtn.closest(".artwork__cta");
+    const formEl = document.getElementById("interestFormEl");
+    const doneEl = document.getElementById("interestDone");
+    const cancelBtn = document.getElementById("interestCancel");
 
-// Estados de ordenamiento para el botón alternante (Toggle)
-const sortModes = [
-  { id: "name-asc", label: "Artista: A - Z", icon: "↓" },
-  { id: "name-desc", label: "Artista: Z - A", icon: "↑" },
-  { id: "artwork-asc", label: "Obra: A - Z", icon: "↓" }
-];
-let currentSortIndex = 0;
+    const openInterest = () => {
+      interestForm.hidden = false;
+      interestBtn.setAttribute("aria-expanded", "true");
+      interestBtn.hidden = true; // el CTA se reemplaza por el formulario
+      if (cta) cta.classList.add("is-open");
+      const firstInput = interestForm.querySelector("input, textarea");
+      if (firstInput) firstInput.focus();
+    };
 
-function renderArtists(list) {
-  if (!grid) return;
-  grid.innerHTML = "";
+    const closeInterest = () => {
+      interestForm.hidden = true;
+      interestBtn.hidden = false;
+      interestBtn.setAttribute("aria-expanded", "false");
+      if (cta) cta.classList.remove("is-open");
+      interestBtn.focus();
+    };
 
-  if (list.length === 0) {
-    if (emptyMsg) emptyMsg.style.display = "block";
-    return;
-  }
+    interestBtn.addEventListener("click", openInterest);
+    if (cancelBtn) cancelBtn.addEventListener("click", closeInterest);
 
-  if (emptyMsg) emptyMsg.style.display = "none";
-
-  list.forEach((artist) => {
-    const card = document.createElement("a");
-    card.href = artist.link;
-    card.className = "artist-card";
-
-    card.innerHTML = `
-      <div class="artist-card__photo" data-placeholder="${artist.foto}"></div>
-      <div class="artist-card__body">
-        <h3 class="artist-card__name">${artist.nombre}</h3>
-        <p class="artist-card__disc">${artist.disciplina} — ${artist.tecnica}</p>
-        <p class="artist-card__artwork">"${artist.obraDestacada}"</p>
-      </div>
-    `;
-    grid.appendChild(card);
-  });
-}
-
-function filterAndSort() {
-  if (!searchInput) return;
-
-  const query = searchInput.value.toLowerCase().trim();
-  const discipline = disciplineSelect.value;
-  const sortBy = sortModes[currentSortIndex].id;
-
-  // 1. Filtrar (Búsqueda general + Disciplina)
-  let filtered = artistsData.filter((a) => {
-    const matchesSearch =
-      a.nombre.toLowerCase().includes(query) ||
-      a.disciplina.toLowerCase().includes(query) ||
-      a.tecnica.toLowerCase().includes(query) ||
-      a.obraDestacada.toLowerCase().includes(query);
-
-    const matchesDiscipline = discipline === "all" || a.disciplina === discipline;
-
-    return matchesSearch && matchesDiscipline;
-  });
-
-  // 2. Ordenar
-  filtered.sort((a, b) => {
-    if (sortBy === "name-asc") {
-      return a.nombre.localeCompare(b.nombre);
-    } else if (sortBy === "name-desc") {
-      return b.nombre.localeCompare(a.nombre);
-    } else if (sortBy === "artwork-asc") {
-      return a.obraDestacada.localeCompare(b.obraDestacada);
+    if (formEl) {
+      formEl.addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (!formEl.checkValidity()) {
+          formEl.reportValidity();
+          return;
+        }
+        // TODO: conectar con servicio real (Formspree / backend / email).
+        formEl.hidden = true;
+        if (doneEl) {
+          doneEl.hidden = false;
+          doneEl.focus?.();
+        }
+      });
     }
-    return 0;
-  });
-
-  // 3. Renderizar
-  renderArtists(filtered);
-}
-
-// Escuchar evento de clic en el botón toggle de orden
-if (btnSortToggle) {
-  btnSortToggle.addEventListener("click", () => {
-    currentSortIndex = (currentSortIndex + 1) % sortModes.length;
-    
-    // Actualizar interfaz del botón
-    labelSort.textContent = sortModes[currentSortIndex].label;
-    btnSortToggle.querySelector(".icon").textContent = sortModes[currentSortIndex].icon;
-
-    filterAndSort();
-  });
-}
-
-if (searchInput && grid) {
-  // Event listeners
-  searchInput.addEventListener("input", filterAndSort);
-  disciplineSelect.addEventListener("change", filterAndSort);
-
-  // Carga inicial
-  filterAndSort();
-}
+  }
 })();
