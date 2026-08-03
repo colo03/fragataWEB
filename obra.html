@@ -3,14 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>[Nombre de la obra] — Galería Fragata</title>
-  <meta name="description" content="[Placeholder SEO] Perfil de obra en Galería Fragata. Reemplazar por descripción real." />
+  <!-- Título y meta se completan por JS según el ?slug= de la URL -->
+  <title>Obra — Galería Fragata</title>
+  <meta name="description" content="Perfil de obra en Galería Fragata." />
 
   <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
 
-  <meta property="og:title" content="[Nombre de la obra] — Galería Fragata" />
-  <meta property="og:description" content="[Placeholder] Perfil de obra." />
+  <meta property="og:title" content="Obra — Galería Fragata" />
+  <meta property="og:description" content="Perfil de obra." />
   <meta property="og:type" content="article" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -32,7 +33,7 @@
 
       <nav class="nav__links" id="navLinks" aria-label="Navegación principal">
         <a href="index.html#inicio" class="nav__link">Inicio</a>
-        <a href="index.html#artistas" class="nav__link">Artistas</a>
+        <a href="index.html#artistas" class="nav__link is-active">Artistas</a>
         <a href="index.html#nosotros" class="nav__link">Nosotros</a>
         <a href="index.html#eventos" class="nav__link">Eventos</a>
         <a href="index.html#contacto" class="nav__link nav__link--cta">Contacto</a>
@@ -44,52 +45,39 @@
     </div>
   </header>
 
-  <main>
+  <!--
+    Contenido completado por js/obra.js a partir de
+    obra.html?slug=<obra>&artista=<artista>, contra js/data.js.
+  -->
+  <main id="workMain" hidden>
     <section class="artwork" id="obra">
-      <!-- TODO: a enlazar -->
       <nav class="breadcrumb" aria-label="Ruta de navegación" data-reveal>
         <a href="index.html#artistas">Artistas</a>
         <span aria-hidden="true">/</span>
-        <!-- TODO: enlazar al perfil del artista cuando exista -->
-        <a href="#">[Nombre del artista]</a>
+        <a href="#" id="crumbArtist"></a>
         <span aria-hidden="true">/</span>
-        <span aria-current="page">[Nombre de la obra]</span>
+        <span aria-current="page" id="crumbWork"></span>
       </nav>
 
       <div class="artwork__grid">
         <!-- Imagen grande de la obra -->
-        <figure class="artwork__media" data-reveal>
-          <!-- Reemplazar el div por: img de obra -->
-          <div class="artwork__photo" data-placeholder="Foto de la obra"></div>
+        <figure class="artwork__media" data-reveal id="workPhoto">
+          <!-- foto o placeholder -->
         </figure>
 
         <!-- Ficha de la obra -->
         <div class="artwork__info" data-reveal>
           <p class="section-label">Obra</p>
-          <h1 class="artwork__title">[Nombre de la obra]</h1>
-          <!-- TODO: enlazar al perfil del artista cuando exista -->
+          <h1 class="artwork__title" id="workTitle"></h1>
           <p class="artwork__artist">
-            <span>por</span> <a href="#">[Nombre del artista]</a>
+            <span>por</span> <a href="#" id="workArtistLink"></a>
           </p>
 
-          <dl class="artwork__meta">
-            <div>
-              <dt>Técnica</dt>
-              <dd>[Ej. Óleo sobre tela]</dd>
-            </div>
-            <div>
-              <dt>Año</dt>
-              <dd>[2026]</dd>
-            </div>
-            <div>
-              <dt>Medidas</dt>
-              <dd>[00 × 00 cm]</dd>
-            </div>
+          <dl class="artwork__meta" id="workMeta">
+            <!-- técnica / año / medidas -->
           </dl>
 
-          <p class="artwork__desc">
-           Posibilidad de sumar descripción de la obra
-          </p>
+          <p class="artwork__desc" id="workDesc" hidden></p>
 
           <!-- CTA: despliega el formulario -->
           <div class="artwork__cta">
@@ -110,7 +98,7 @@
               <h2 class="interest__title">Dejanos tus datos</h2>
               <p class="interest__lead">
                 Completá el formulario y te enviamos información adicional sobre
-                <strong>"Obra"</strong>.
+                <strong id="interestWorkName"></strong>.
               </p>
             </div>
 
@@ -135,8 +123,9 @@
                 <textarea id="f-msg" name="mensaje" rows="3" placeholder="">Hola, me interesa que me contacten por esta obra</textarea>
               </div>
 
-              <!-- Obra de referencia — se autocompleta para saber por cuál escriben -->
-              <input type="hidden" name="obra" value="[Nombre de la obra]" />
+              <!-- Referencia — la completa obra.js para saber por cuál escriben -->
+              <input type="hidden" name="obra" id="fieldObra" value="" />
+              <input type="hidden" name="artista" id="fieldArtista" value="" />
 
               <div class="interest__actions">
                 <button type="submit" class="btn btn--primary">Enviar consulta</button>
@@ -158,6 +147,44 @@
           </div>
         </div>
       </div>
+    </section>
+
+    <!-- ------------------------------ Otras obras del artista ------------------------------ -->
+    <section class="works" id="mas-obras" hidden>
+      <div class="section-head">
+        <div>
+          <p class="section-label" data-reveal>Seguir mirando</p>
+          <h2 class="section-title" data-reveal id="moreWorksTitle"></h2>
+        </div>
+
+        <div class="carousel__nav" data-reveal>
+          <button type="button" class="carousel__btn" data-carousel-prev aria-label="Obras anteriores">
+            <span aria-hidden="true">←</span>
+          </button>
+          <button type="button" class="carousel__btn" data-carousel-next aria-label="Obras siguientes">
+            <span aria-hidden="true">→</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="carousel" data-carousel data-reveal>
+        <ul class="carousel__track" id="moreWorksTrack" tabindex="0"
+            aria-label="Otras obras del artista, deslizá horizontalmente">
+          <!-- tarjetas de obra -->
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <!-- Estado de error: el slug de la URL no corresponde a ninguna obra -->
+  <main id="workNotFound" hidden>
+    <section class="not-found">
+      <p class="section-label">Error 404</p>
+      <h1 class="not-found__title">No encontramos esa obra</h1>
+      <p class="not-found__lead">
+        El link puede estar mal escrito o la obra ya no está disponible.
+      </p>
+      <a href="index.html#artistas" class="btn btn--primary">Ver todos los artistas</a>
     </section>
   </main>
 
@@ -189,6 +216,9 @@
     </div>
   </footer>
 
+  <script src="js/data.js"></script>
+  <script src="js/carrusel.js"></script>
+  <script src="js/obra.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

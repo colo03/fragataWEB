@@ -199,17 +199,9 @@
 
   // Solo ejecutar si estamos en una página con la grilla de artistas
   if (artistsGrid) {
-    // Datos de ejemplo. En un caso real, vendrían de un backend/API.
-    const artistsData = [
-      { name: "Ana Pérez", discipline: "Pintura", artwork: "Serenidad Cósmica", photo: "placeholder" },
-      { name: "Carlos Gómez", discipline: "Fotografía", artwork: "Reflejos Urbanos", photo: "placeholder" },
-      { name: "Sofía Rossi", discipline: "Instalación", artwork: "Laberinto de Ecos", photo: "placeholder" },
-      { name: "Javier Núñez", discipline: "Escultura", artwork: "Forma Fluida", photo: "placeholder" },
-      { name: "Valentina Rojas", discipline: "Pintura", artwork: "Retrato del Viento", photo: "placeholder" },
-      { name: "Mateo Díaz", discipline: "Fotografía", artwork: "Naturaleza Oculta", photo: "placeholder" },
-      { name: "Lucía Fernández", discipline: "Instalación", artwork: "Diálogos de Luz", photo: "placeholder" },
-      { name: "Diego Morales", discipline: "Escultura", artwork: "Tensión y Equilibrio", photo: "placeholder" },
-    ];
+    // Los datos viven en js/data.js, que también alimenta artista.html.
+    const { escape: esc, media } = window.FRAGATA;
+    const artistsData = window.FRAGATA_ARTISTS || [];
 
     let currentSortOrder = "asc"; // 'asc' o 'desc'
 
@@ -225,14 +217,16 @@
 
       artists.forEach((artist) => {
         const card = document.createElement("a");
-        card.href = "#"; // TODO: Enlazar a perfil de artista
+        card.href = `artista.html?slug=${encodeURIComponent(artist.slug)}`;
         card.className = "artist-card";
+        // Se muestra la primera obra de la lista como obra destacada.
+        const featured = artist.works[0];
         card.innerHTML = `
-          <div class="artist-card__photo" data-placeholder="Foto de ${artist.name}"></div>
+          ${media(artist.photo, `Retrato de ${artist.name}`, "artist-card__photo", `Foto de ${artist.name}`)}
           <div class="artist-card__body">
-            <h3 class="artist-card__name">${artist.name}</h3>
-            <p class="artist-card__disc">${artist.discipline}</p>
-            <p class="artist-card__artwork">Obra: "${artist.artwork}"</p>
+            <h3 class="artist-card__name">${esc(artist.name)}</h3>
+            <p class="artist-card__disc">${esc(artist.discipline)}</p>
+            ${featured ? `<p class="artist-card__artwork">Obra: "${esc(featured.title)}"</p>` : ""}
           </div>
         `;
         // Para la animación de entrada
@@ -247,10 +241,18 @@
       const selectedDiscipline = filterDiscipline.value;
 
       let filteredArtists = artistsData.filter((artist) => {
-        const matchesSearch =
-          artist.name.toLowerCase().includes(searchTerm) ||
-          artist.discipline.toLowerCase().includes(searchTerm) ||
-          artist.artwork.toLowerCase().includes(searchTerm);
+        // Busca en nombre, disciplina y en el título/técnica de TODAS las
+        // obras del artista, no sólo en la destacada.
+        const haystack = [
+          artist.name,
+          artist.discipline,
+          ...artist.works.flatMap((w) => [w.title, w.technique]),
+        ]
+          .filter(Boolean)
+          .join(" ")
+          .toLowerCase();
+
+        const matchesSearch = haystack.includes(searchTerm);
 
         const matchesDiscipline =
           selectedDiscipline === "all" || artist.discipline === selectedDiscipline;

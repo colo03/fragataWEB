@@ -584,8 +584,11 @@ button {
   animation: fadeIn 0.4s var(--ease) forwards;
 }
 
+/* Sirve tanto para el <img> real como para el div con placeholder */
 .artist-card__photo {
+  width: 100%;
   aspect-ratio: 3 / 4;
+  object-fit: cover;
   border-radius: var(--radius);
   background-color: var(--bg-elev);
   transition: transform 0.5s var(--ease), filter 0.5s var(--ease);
@@ -1670,5 +1673,277 @@ button {
     right: auto;
     border-width: 8px 10px 8px 0;
     border-color: transparent var(--line-soft) transparent transparent;
+  }
+}
+
+/* =====================================================================
+   PERFIL DE ARTISTA — Cabecera y carrusel de obras
+   ===================================================================== */
+
+.artist-profile {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: calc(var(--nav-h) + clamp(1.5rem, 4vw, 3rem)) var(--gutter)
+    clamp(3rem, 7vw, 5rem);
+}
+
+.artist-profile__grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1fr;
+  gap: clamp(2rem, 6vw, 4.5rem);
+  align-items: start;
+}
+
+/* --- Foto --- */
+.artist-profile__media {
+  position: sticky;
+  top: calc(var(--nav-h) + 1.5rem);
+}
+.artist-profile__photo {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: var(--radius);
+  border: 1px solid var(--line-soft);
+}
+
+/* --- Ficha --- */
+.artist-profile__name {
+  font-size: clamp(2.2rem, 5.5vw, 3.8rem);
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.6rem;
+}
+
+.artist-profile__bio {
+  color: var(--text-dim);
+  max-width: 56ch;
+  font-size: 1.05rem;
+}
+.artist-profile__bio p + p {
+  margin-top: 1rem;
+}
+
+.artist-profile__meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 1.5rem 2rem;
+  padding: 1.8rem 0;
+  border-top: 1px solid var(--line-soft);
+  border-bottom: 1px solid var(--line-soft);
+  margin: 2.2rem 0;
+}
+.artist-profile__meta dt {
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 0.35rem;
+}
+.artist-profile__meta dd {
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.artist-profile__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-bottom: 2.2rem;
+}
+
+/* ------------------------------ Sección Obras ------------------------------ */
+.works {
+  padding: clamp(3rem, 8vw, 5.5rem) 0 clamp(4rem, 10vw, 7rem);
+  border-top: 1px solid var(--line-soft);
+}
+
+.works__empty {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  color: var(--text-dim);
+}
+.works__empty[hidden] {
+  display: none;
+}
+
+/* ------------------------------ Carrusel ------------------------------ */
+/* El scroll lo maneja el navegador (snap nativo): funciona con dedo,
+   trackpad y teclado aunque el JS no cargue. Los botones son un extra. */
+.carousel[hidden] {
+  display: none;
+}
+
+.carousel__track {
+  display: flex;
+  gap: 1.4rem;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  /* El padding lateral alinea la primera tarjeta con el resto del sitio
+     y deja aire al final del recorrido. scroll-padding hace que el snap
+     respete ese margen en vez de pegar la tarjeta al borde. */
+  padding: 0.5rem var(--gutter) 1.5rem;
+  scroll-padding-left: var(--gutter);
+  max-width: var(--maxw);
+  margin: 0 auto;
+  /* Scrollbar discreta pero visible: es la pista de que hay más obras. */
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}
+.carousel__track::-webkit-scrollbar {
+  height: 6px;
+}
+.carousel__track::-webkit-scrollbar-track {
+  background: var(--line-soft);
+  border-radius: 100px;
+}
+.carousel__track::-webkit-scrollbar-thumb {
+  background: var(--grey-2);
+  border-radius: 100px;
+}
+.carousel__track::-webkit-scrollbar-thumb:hover {
+  background: var(--grey);
+}
+.carousel__track:focus-visible {
+  outline: 1px solid var(--white);
+  outline-offset: 4px;
+}
+
+.carousel__item {
+  flex: 0 0 clamp(220px, 26vw, 300px);
+  scroll-snap-align: start;
+}
+
+/* --- Botones prev/next --- */
+.carousel__nav {
+  display: flex;
+  gap: 0.6rem;
+}
+.carousel__btn {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--text);
+  font-size: 1.1rem;
+  transition: border-color 0.25s var(--ease), background 0.25s var(--ease),
+    opacity 0.25s var(--ease);
+}
+.carousel__btn:hover:not(:disabled) {
+  border-color: var(--white);
+  background: rgba(255, 255, 255, 0.05);
+}
+.carousel__btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+/* Si todas las obras entran en pantalla, los botones no aportan nada */
+.works.is-static .carousel__nav {
+  display: none;
+}
+
+/* --- Tarjeta de obra --- */
+.work-card {
+  display: block;
+  height: 100%;
+}
+.work-card__media {
+  overflow: hidden;
+  border-radius: var(--radius);
+}
+.work-card__photo {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: var(--radius);
+  transition: transform 0.5s var(--ease), filter 0.5s var(--ease);
+}
+.work-card:hover .work-card__photo {
+  transform: scale(1.04);
+  filter: brightness(1.12);
+}
+
+.work-card__body {
+  padding: 1rem 0.2rem 0;
+}
+.work-card__title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+.work-card__year {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  margin-top: 0.15rem;
+}
+.work-card__specs {
+  font-size: 0.8rem;
+  color: var(--text-faint);
+  margin-top: 0.35rem;
+}
+.work-card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.8rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-dim);
+  transition: color 0.25s var(--ease);
+}
+.work-card__cta span {
+  transition: transform 0.25s var(--ease);
+}
+.work-card:hover .work-card__cta {
+  color: var(--white);
+}
+.work-card:hover .work-card__cta span {
+  transform: translateX(4px);
+}
+
+/* ------------------------------ 404 de artista ------------------------------ */
+.not-found {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: calc(var(--nav-h) + clamp(4rem, 12vw, 8rem)) var(--gutter)
+    clamp(5rem, 14vw, 9rem);
+  text-align: center;
+}
+.not-found__title {
+  font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+.not-found__lead {
+  color: var(--text-dim);
+  margin-bottom: 2rem;
+}
+
+/* ------------------------------ Responsive ------------------------------ */
+@media (max-width: 860px) {
+  .artist-profile__grid {
+    grid-template-columns: 1fr;
+  }
+  .artist-profile__media {
+    position: static;
+    max-width: 380px;
+  }
+}
+
+@media (max-width: 520px) {
+  .artist-profile__actions .btn {
+    width: 100%;
+  }
+  .carousel__item {
+    /* Se asoma la tarjeta siguiente para que se lea como carrusel */
+    flex-basis: 74vw;
   }
 }

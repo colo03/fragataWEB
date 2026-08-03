@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Título y meta se completan por JS según el ?slug= de la URL -->
+  <title>Artista — Galería Fragata</title>
+  <meta name="description" content="Perfil de artista en Galería Fragata." />
+
+  <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+
+  <meta property="og:title" content="Artista — Galería Fragata" />
+  <meta property="og:description" content="Perfil de artista." />
+  <meta property="og:type" content="profile" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Caveat:wght@500;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <a href="#artista" class="skip-link">Saltar al contenido</a>
+
+  <header class="nav is-scrolled" id="nav">
+    <div class="nav__inner">
+      <a href="index.html#inicio" class="nav__brand" aria-label="Galería Fragata — inicio">
+        <img src="assets/isotipo_white.png" alt="" class="nav__flag" />
+        <img src="assets/fragata_white.png" alt="Galería Fragata" class="nav__wordmark" />
+      </a>
+
+      <nav class="nav__links" id="navLinks" aria-label="Navegación principal">
+        <a href="index.html#inicio" class="nav__link">Inicio</a>
+        <a href="index.html#artistas" class="nav__link is-active">Artistas</a>
+        <a href="index.html#nosotros" class="nav__link">Nosotros</a>
+        <a href="index.html#eventos" class="nav__link">Eventos</a>
+        <a href="index.html#contacto" class="nav__link nav__link--cta">Contacto</a>
+      </nav>
+
+      <button class="nav__toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!--
+    Todo el contenido de abajo lo completa js/artista.js leyendo el
+    ?slug= de la URL contra js/data.js. Los textos que se ven acá son
+    sólo el esqueleto: nunca se muestran sin reemplazar.
+  -->
+  <main id="artistMain" hidden>
+    <section class="artist-profile" id="artista">
+      <nav class="breadcrumb" aria-label="Ruta de navegación" data-reveal>
+        <a href="index.html#artistas">Artistas</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page" id="crumbName"></span>
+      </nav>
+
+      <div class="artist-profile__grid">
+        <figure class="artist-profile__media" data-reveal id="artistPhoto">
+          <!-- foto o placeholder -->
+        </figure>
+
+        <div class="artist-profile__info" data-reveal>
+          <p class="section-label" id="artistDiscipline"></p>
+          <h1 class="artist-profile__name" id="artistName"></h1>
+
+          <div class="artist-profile__bio" id="artistBio">
+            <!-- párrafos de bio -->
+          </div>
+
+          <dl class="artist-profile__meta" id="artistMeta">
+            <!-- disciplina / ciudad / desde -->
+          </dl>
+
+          <div class="artist-profile__actions">
+            <a href="#obras" class="btn btn--primary">Ver obras</a>
+          </div>
+
+          <div class="social-links" id="artistLinks" hidden>
+            <span class="social-links__label">Seguilo en</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ------------------------------ Carrusel de obras ------------------------------ -->
+    <section class="works" id="obras">
+      <div class="section-head">
+        <div>
+          <p class="section-label" data-reveal>Obras</p>
+          <h2 class="section-title" data-reveal>Obra seleccionada</h2>
+        </div>
+
+        <div class="carousel__nav" data-reveal>
+          <button type="button" class="carousel__btn" data-carousel-prev aria-label="Obras anteriores">
+            <span aria-hidden="true">←</span>
+          </button>
+          <button type="button" class="carousel__btn" data-carousel-next aria-label="Obras siguientes">
+            <span aria-hidden="true">→</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="carousel" data-carousel data-reveal>
+        <ul class="carousel__track" id="worksTrack" tabindex="0"
+            aria-label="Obras del artista, deslizá horizontalmente">
+          <!-- tarjetas de obra -->
+        </ul>
+      </div>
+
+      <p class="works__empty" id="worksEmpty" hidden>
+        Todavía no hay obras cargadas para este artista.
+      </p>
+    </section>
+  </main>
+
+  <!-- Estado de error: el slug de la URL no corresponde a ningún artista -->
+  <main id="artistNotFound" hidden>
+    <section class="not-found">
+      <p class="section-label">Error 404</p>
+      <h1 class="not-found__title">No encontramos a ese artista</h1>
+      <p class="not-found__lead">
+        El link puede estar mal escrito o el perfil ya no está disponible.
+      </p>
+      <a href="index.html#artistas" class="btn btn--primary">Ver todos los artistas</a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <img src="assets/isologo_white.png" alt="Galería Fragata" class="footer__logo" />
+        <p class="footer__tagline">Galería itinerante nocturna</p>
+      </div>
+
+      <nav class="footer__nav" aria-label="Navegación de pie">
+        <a href="index.html#inicio">Inicio</a>
+        <a href="index.html#artistas">Artistas</a>
+        <a href="index.html#nosotros">Nosotros</a>
+        <a href="index.html#eventos">Eventos</a>
+        <a href="index.html#contacto">Contacto</a>
+      </nav>
+
+      <div class="footer__contact">
+        <a href="mailto:[correo@fragata.com]">[correo@fragata.com]</a>
+        <a href="#" aria-label="Instagram">Instagram ↗</a>
+        <a href="#" aria-label="WhatsApp">[+54 9 ...] ↗</a>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <span>© <span id="year">2026</span> Galería Fragata. [Todos los derechos reservados].</span>
+      <span>Sitio en construcción — template base</span>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/carrusel.js"></script>
+  <script src="js/artista.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
