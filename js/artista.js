@@ -20,15 +20,15 @@
   /* -------------------- Slug inexistente: estado 404 -------------------- */
   if (!artist) {
     notFoundEl.hidden = false;
-    document.title = "Artista no encontrado â€” GalerÃ­a Fragata";
+    document.title = "Artista no encontrado en Galería Fragata";
     return;
   }
 
   mainEl.hidden = false;
 
-  /* -------------------- Head: tÃ­tulo, SEO y compartir -------------------- */
-  const pageTitle = `${artist.name} â€” GalerÃ­a Fragata`;
-  const pageDesc = artist.bio[0] || `Perfil de ${artist.name} en GalerÃ­a Fragata.`;
+  /* -------------------- Head: título, SEO y compartir -------------------- */
+  const pageTitle = `${artist.name} - Galería Fragata`;
+  const pageDesc = artist.bio[0] || `Perfil de ${artist.name} en Galería Fragata.`;
 
   document.title = pageTitle;
   const setMeta = (selector, value) => {
