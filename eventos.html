@@ -24,10 +24,10 @@
         <a href="index.html" class="nav__link">Inicio</a>
         <a href="artistas.html" class="nav__link">Artistas</a>
         <a href="eventos.html" class="nav__link is-active">Eventos</a>
-        <a href="#contacto" class="nav__link nav__link--cta">Postularse</a>
-      </div>
-      <button class="nav__toggle" aria-label="Menú">
-        <span></span><span></span><span></span>
+        <a href="index.html#contacto" class="nav__link nav__link--cta">Contacto</a>
+      </nav>
+
+      <button class="nav__toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
       </button>
     </div>
   </nav>
@@ -47,10 +47,12 @@
         <div class="featured-event__badge">Próxima Edición</div>
         
         <div class="featured-event__grid">
-          <div class="featured-event__media" data-placeholder="Flyer / Visual del Evento"></div>
+            <div class="featured-event__media" data-placeholder="Flyer / Visual del Evento"></div>
           
           <div class="featured-event__content">
-            <h2 class="featured-event__title">Nombre de la Próxima Exposición</h2>
+            <h2 class="featured-event__title">
+              <a>Nombre de la Próxima Exposición</a>
+            </h2>
             
             <dl class="featured-event__meta">
               <div>
@@ -77,8 +79,7 @@
             </div>
 
             <div class="featured-event__actions">
-              <a href="#" class="btn btn--primary">Reservar Entrada</a>
-              <a href="#contacto" class="btn btn--ghost">Quiero Exponer</a>
+              <a href="eventoproximo.html" class="btn btn--primary">Participar</a>
             </div>
           </div>
         </div>
@@ -105,7 +106,9 @@
                 <span class="timeline-item__date">Octubre 2025</span>
                 <span class="tag">Dickmann</span>
               </header>
-              <h3 class="timeline-item__title">Muestra Colectiva Dickmann</h3>
+              <h3 class="timeline-item__title">
+                <a href="evento.html">Muestra Colectiva Dickmann</a>
+              </h3>
               <p class="timeline-item__desc">
                 Reseña breve de lo que fue el evento, la concurrencia y la temática trabajada en esta locación.
               </p>
@@ -124,7 +127,9 @@
                 <span class="timeline-item__date">Julio 2025</span>
                 <span class="tag">Lavandería</span>
               </header>
-              <h3 class="timeline-item__title">Noche de Arte & Sonido</h3>
+              <h3 class="timeline-item__title">
+                <a href="evento.html">Noche de Arte & Sonido</a>
+              </h3>
               <p class="timeline-item__desc">
                 Primera edición en el espacio Lavandería combinando artes visuales e instalaciones sonoras en vivo.
               </p>
@@ -143,7 +148,9 @@
                 <span class="timeline-item__date">Marzo 2025</span>
                 <span class="tag">Sede Inaugural</span>
               </header>
-              <h3 class="timeline-item__title">Edición Inaugural Fragata</h3>
+              <h3 class="timeline-item__title">
+                <a href="evento.html">Edición Inaugural Fragata</a>
+              </h3>
               <p class="timeline-item__desc">
                 El hito de apertura de la galería itinerante. Presentación del manifiesto y primera selección de obras.
               </p>

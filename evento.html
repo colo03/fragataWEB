@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edición Nocturna #07 — Galería Fragata</title>
+  <meta name="description" content="Registro y ficha técnica de una edición finalizada de Galería Fragata: artistas que expusieron y galería de fotos de la noche." />
+
+  <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+
+  <meta property="og:title" content="Edición Nocturna #07 — Galería Fragata" />
+  <meta property="og:description" content="Registro de una edición finalizada de Galería Fragata." />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Caveat:wght@500;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+  <!-- Compartido con eventoproximo.html: no tocar acá al reutilizar el template. -->
+  <link rel="stylesheet" href="css/eventos-detalle.css" />
+</head>
+<body>
+
+  <a href="#registro" class="skip-link">Saltar al contenido</a>
+
+  <header class="nav is-scrolled" id="nav">
+    <div class="nav__inner">
+      <a href="index.html#inicio" class="nav__brand" aria-label="Galería Fragata — inicio">
+        <img src="assets/isotipo_white.png" alt="" class="nav__flag" />
+        <img src="assets/fragata_white.png" alt="Galería Fragata" class="nav__wordmark" />
+      </a>
+
+      <nav class="nav__links" id="navLinks" aria-label="Navegación principal">
+        <a href="index.html#inicio" class="nav__link">Inicio</a>
+        <a href="artistas.html" class="nav__link">Artistas</a>
+        <a href="index.html#nosotros" class="nav__link">Nosotros</a>
+        <a href="eventos.html" class="nav__link is-active">Eventos</a>
+        <a href="index.html#contacto" class="nav__link nav__link--cta">Contacto</a>
+      </nav>
+
+      <button class="nav__toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============================== HERO / HEADER DEL EVENTO ==============================
+         Mismas clases que eventoproximo.html. Únicas diferencias: el
+         modificador del badge ("--past") y que no hay cuenta regresiva
+         ni CTA de reserva (se reemplaza por un link a la galería). -->
+    <section class="event-header">
+      <div class="event-header__inner">
+        <div class="event-header__copy">
+          <nav class="breadcrumb" aria-label="Ruta de navegación" data-reveal>
+            <a href="eventos.html">Eventos</a>
+            <span aria-hidden="true">/</span>
+            <span aria-current="page">Edición Nocturna #07</span>
+          </nav>
+
+          <span class="event-badge event-badge--past" data-reveal>Edición Finalizada</span>
+
+          <h1 class="event-header__title" data-reveal>Muestra Colectiva Dickmann</h1>
+
+          <dl class="event-details" data-reveal>
+            <div>
+              <dt>Fecha</dt>
+              <dd>[Octubre 2025]</dd>
+            </div>
+            <div>
+              <dt>Sede</dt>
+              <dd>[Espacio Dickmann]</dd>
+            </div>
+            <div>
+              <dt>Curaduría</dt>
+              <dd>[Edición Nocturna #07]</dd>
+            </div>
+          </dl>
+
+          <div class="event-header__actions" data-reveal>
+            <a href="#registro" class="btn btn--primary">Ver registro fotográfico</a>
+            <a href="#ficha-tecnica" class="btn btn--ghost">Ficha técnica</a>
+          </div>
+        </div>
+
+        <div
+          class="event-header__media"
+          data-placeholder="Flyer de la edición"
+          data-reveal
+          role="img"
+          aria-label="Flyer de la edición Dickmann"
+        ></div>
+      </div>
+    </section>
+
+    <!-- ============================== RESUMEN DE LA CURADURÍA ============================== -->
+    <section class="event-about">
+      <div class="event-about__inner">
+        <p class="section-label" data-reveal>Sobre la muestra</p>
+        <p class="event-about__text" data-reveal>
+          [Placeholder] Reseña breve de lo que fue el evento: la concurrencia, el
+          recorrido curatorial propuesto y la temática trabajada en esta locación.
+          Reemplazar por el texto real de cierre de la edición.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================== GALERÍA DE REGISTRO ==============================
+         Bloque exclusivo de evento.html: reemplaza a .event-signup +
+         .event-location de eventoproximo.html. Masonry con columnas CSS,
+         sin librerías. Cada <button> abre el lightbox de js/evento.js. -->
+    <section class="event-gallery" id="registro">
+      <div class="event-gallery__inner">
+        <div class="section-head">
+          <div>
+            <p class="section-label" data-reveal>Registro</p>
+            <h2 class="section-title" data-reveal>Así fue esa noche</h2>
+          </div>
+        </div>
+
+        <div class="event-gallery__grid" id="galleryGrid" data-reveal>
+          <!-- Reemplazar cada data-placeholder por
+               <img src="assets/eventos/dickmann-01.jpg" alt="..." /> real.
+               js/evento.js engancha el lightbox automáticamente sobre
+               cualquier .event-gallery__item que encuentre acá adentro. -->
+          <button type="button" class="event-gallery__item" data-placeholder="Foto 01 — Dickmann" aria-label="Ampliar foto 1 del registro"></button>
+          <button type="button" class="event-gallery__item" data-placeholder="Foto 02 — Dickmann" aria-label="Ampliar foto 2 del registro"></button>
+          <button type="button" class="event-gallery__item" data-placeholder="Foto 03 — Dickmann" aria-label="Ampliar foto 3 del registro"></button>
+          <button type="button" class="event-gallery__item" data-placeholder="Foto 04 — Dickmann" aria-label="Ampliar foto 4 del registro"></button>
+          <button type="button" class="event-gallery__item" data-placeholder="Foto 05 — Dickmann" aria-label="Ampliar foto 5 del registro"></button>
+          <button type="button" class="event-gallery__item" data-placeholder="Foto 06 — Dickmann" aria-label="Ampliar foto 6 del registro"></button>
+          <button type="button" class="event-gallery__item" data-placeholder="Foto 07 — Dickmann" aria-label="Ampliar foto 7 del registro"></button>
+          <button type="button" class="event-gallery__item" data-placeholder="Foto 08 — Dickmann" aria-label="Ampliar foto 8 del registro"></button>
+          <button type="button" class="event-gallery__item" data-placeholder="Foto 09 — Dickmann" aria-label="Ampliar foto 9 del registro"></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== FICHA TÉCNICA ==============================
+         Misma clase .artist-roster que el line-up de eventoproximo.html:
+         acá es la nómina final, todos ya expusieron (sin tarjetas "a
+         confirmar"). -->
+    <section class="artist-roster" id="ficha-tecnica">
+      <div class="section-head">
+        <div>
+          <p class="section-label" data-reveal>Ficha técnica</p>
+          <h2 class="section-title" data-reveal>Expusieron en esta edición</h2>
+        </div>
+      </div>
+
+      <ul class="artist-roster__list" data-reveal>
+        <li>
+          <a href="artista.html?slug=valentina-rojas" class="artist-roster__link">
+            <span class="artist-roster__name">Valentina Rojas</span>
+            <span class="artist-roster__discipline">Pintura</span>
+          </a>
+        </li>
+        <li>
+          <a href="artista.html?slug=mateo-diaz" class="artist-roster__link">
+            <span class="artist-roster__name">Mateo Díaz</span>
+            <span class="artist-roster__discipline">Fotografía</span>
+          </a>
+        </li>
+        <li>
+          <a href="artista.html?slug=lucia-fernandez" class="artist-roster__link">
+            <span class="artist-roster__name">Lucía Fernández</span>
+            <span class="artist-roster__discipline">Instalación</span>
+          </a>
+        </li>
+        <li>
+          <a href="artista.html?slug=diego-morales" class="artist-roster__link">
+            <span class="artist-roster__name">Diego Morales</span>
+            <span class="artist-roster__discipline">Escultura</span>
+          </a>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <img src="assets/isologo_white.png" alt="Galería Fragata" class="footer__logo" />
+        <p class="footer__tagline">Galería itinerante nocturna</p>
+      </div>
+
+      <nav class="footer__nav" aria-label="Navegación de pie">
+        <a href="index.html#inicio">Inicio</a>
+        <a href="artistas.html">Artistas</a>
+        <a href="index.html#nosotros">Nosotros</a>
+        <a href="eventos.html">Eventos</a>
+        <a href="index.html#contacto">Contacto</a>
+      </nav>
+
+      <div class="footer__contact">
+        <a href="mailto:[correo@fragata.com]">[correo@fragata.com]</a>
+        <a href="#" aria-label="Instagram">Instagram ↗</a>
+        <a href="#" aria-label="WhatsApp">[+54 9 ...] ↗</a>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <span>© <span id="year">2026</span> Galería Fragata. [Todos los derechos reservados].</span>
+      <span>Sitio en construcción — template base</span>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/evento.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
