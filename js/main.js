@@ -312,4 +312,240 @@
     }
   }
 
+/* =====================================================================
+   GALERÍA FRAGATA — artistas.js
+   ===================================================================== */
+
+(function () {
+  "use strict";
+
+  if (!window.FRAGATA || !window.FRAGATA_ARTISTS) return;
+
+  const { escape: e, media, workUrl } = window.FRAGATA;
+  const artists = window.FRAGATA_ARTISTS;
+
+  const prefersReduced = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  /* -------------------- Agrupar obras por disciplina -------------------- */
+  const GROUPS = {
+    pintura: ["Pintura"],
+    fotografia: ["Fotografía"],
+    "instalacion-escultura": ["Instalación", "Escultura"],
+    performance: ["Performance"],
+  };
+
+  const worksByGroup = (disciplines) => {
+    const out = [];
+    artists.forEach((artist) => {
+      if (!disciplines.includes(artist.discipline)) return;
+      (artist.works || []).forEach((work) => {
+        out.push({ work, artist });
+      });
+    });
+    return out;
+  };
+
+  /* -------------------- Tarjeta de obra para el carrusel -------------------- */
+  const marqueeCard = ({ work, artist }, cloneIndex) => {
+    const hiddenAttrs =
+      cloneIndex === 0 ? "" : ' aria-hidden="true" tabindex="-1"';
+    return `
+      <li class="marquee__item"${cloneIndex === 0 ? "" : ' aria-hidden="true"'}>
+        <a class="marquee-card" href="${e(workUrl(work, artist))}" draggable="false"${hiddenAttrs}>
+          <div class="marquee-card__media">
+            ${media(
+              work.photo,
+              `${work.title}, de ${artist.name}`,
+              "marquee-card__photo",
+              "Foto de la obra"
+            )}
+          </div>
+          <div class="marquee-card__body">
+            <p class="marquee-card__artist">${e(artist.name)}</p>
+            <h4 class="marquee-card__title">${e(work.title)}</h4>
+            ${work.year ? `<p class="marquee-card__disc">${e(work.year)}</p>` : ""}
+          </div>
+        </a>
+      </li>`;
+  };
+
+  /* -------------------- Poblar cada fila -------------------- */
+  document.querySelectorAll("[data-marquee]").forEach((el) => {
+    const groupKey = el.dataset.marqueeGroup;
+    const disciplines = GROUPS[groupKey];
+    const track = el.querySelector("[data-marquee-track]");
+    const row = el.closest(".disc-showcase__row");
+    if (!disciplines || !track) return;
+
+    const items = worksByGroup(disciplines);
+
+    if (!items.length) {
+      if (row) row.hidden = true;
+      return;
+    }
+
+    const copies = [0, 1, 2];
+    track.innerHTML = copies
+      .map((copyIndex) =>
+        items.map((item) => marqueeCard(item, copyIndex)).join("")
+      )
+      .join("");
+
+    initMarquee(el, track);
+  });
+
+  /* -------------------- Motor de scroll continuo -------------------- */
+  function initMarquee(viewport, track) {
+    const direction = viewport.dataset.direction === "left" ? -1 : 1;
+    const SPEED = 0.5; // px por frame a 60fps ≈ 30px/s
+
+    let singleWidth = 0;
+    let hoverPaused = false;
+    let offscreenPaused = !prefersReduced ? false : true;
+    let isDragging = false;
+    let pointerDown = false;
+    let suppressClick = false;
+    let dragStartX = 0;
+    let dragStartScroll = 0;
+    let rafId = null;
+
+    // Menos que esto es un click, no un arrastre: si no, el pointer capture
+    // se queda con el evento y la tarjeta nunca navega a la obra.
+    const DRAG_THRESHOLD = 5;
+
+    const measure = () => {
+      singleWidth = track.scrollWidth / 3;
+      if (viewport.scrollLeft < 1) {
+        viewport.scrollLeft = singleWidth;
+      }
+    };
+
+    const wrapIfNeeded = () => {
+      if (viewport.scrollLeft <= 1) {
+        viewport.scrollLeft += singleWidth;
+      } else if (viewport.scrollLeft >= singleWidth * 2 - 1) {
+        viewport.scrollLeft -= singleWidth;
+      }
+    };
+
+    const tick = () => {
+      const paused = hoverPaused || offscreenPaused || isDragging;
+      if (!paused) {
+        viewport.scrollLeft += SPEED * direction;
+      }
+      wrapIfNeeded();
+      rafId = requestAnimationFrame(tick);
+    };
+
+    measure();
+    window.addEventListener("resize", measure);
+
+    // Pausa al pasar el cursor o tocar la pantalla.
+    viewport.addEventListener("mouseenter", () => (hoverPaused = true));
+    viewport.addEventListener("mouseleave", () => (hoverPaused = false));
+    viewport.addEventListener(
+      "touchstart",
+      () => (hoverPaused = true),
+      { passive: true }
+    );
+    viewport.addEventListener("touchend", () => (hoverPaused = false));
+    viewport.addEventListener("touchcancel", () => (hoverPaused = false));
+
+    // Arrastre con mouse/touch (Pointer Events cubre ambos casos).
+    // El arrastre recién empieza cuando el dedo/cursor se movió de verdad:
+    // hasta entonces el evento sigue su curso normal y el click llega al <a>.
+    viewport.addEventListener("pointerdown", (ev) => {
+      if (ev.button !== undefined && ev.button !== 0) return;
+      pointerDown = true;
+      dragStartX = ev.clientX;
+      dragStartScroll = viewport.scrollLeft;
+    });
+
+    viewport.addEventListener("pointermove", (ev) => {
+      if (!pointerDown) return;
+      const delta = ev.clientX - dragStartX;
+
+      if (!isDragging) {
+        if (Math.abs(delta) < DRAG_THRESHOLD) return;
+        isDragging = true;
+        viewport.classList.add("is-dragging");
+        viewport.setPointerCapture?.(ev.pointerId);
+      }
+
+      viewport.scrollLeft = dragStartScroll - delta;
+    });
+
+    const endDrag = (ev) => {
+      if (isDragging) {
+        // Soltar después de arrastrar no debe navegar a la obra.
+        suppressClick = true;
+        if (ev && viewport.hasPointerCapture?.(ev.pointerId)) {
+          viewport.releasePointerCapture(ev.pointerId);
+        }
+      }
+      pointerDown = false;
+      isDragging = false;
+      viewport.classList.remove("is-dragging");
+    };
+    viewport.addEventListener("pointerup", endDrag);
+    viewport.addEventListener("pointercancel", endDrag);
+    viewport.addEventListener("pointerleave", endDrag);
+
+    // Se cancela sólo el click que cierra un arrastre; el click limpio pasa.
+    viewport.addEventListener(
+      "click",
+      (ev) => {
+        if (!suppressClick) return;
+        suppressClick = false;
+        ev.preventDefault();
+        ev.stopPropagation();
+      },
+      true
+    );
+
+    // Pausa cuando la fila sale de pantalla, para no gastar CPU de más.
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            offscreenPaused = prefersReduced || !entry.isIntersecting;
+          });
+        },
+        { threshold: 0.01 }
+      );
+      io.observe(viewport);
+    }
+
+    rafId = requestAnimationFrame(tick);
+
+    window.addEventListener("pagehide", () => rafId && cancelAnimationFrame(rafId));
+  }
+
+  /* -------------------- Botones "Ver en el directorio" --------------------*/
+  document.querySelectorAll("[data-filter-link]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const value = btn.dataset.filterLink;
+      const select = document.getElementById("filterDiscipline");
+      const directorio = document.getElementById("directorio");
+
+      if (select) {
+        const hasOption = Array.from(select.options).some(
+          (opt) => opt.value === value
+        );
+        select.value = hasOption ? value : "all";
+        select.dispatchEvent(new Event("change"));
+      }
+
+      if (directorio) {
+        directorio.scrollIntoView({
+          behavior: prefersReduced ? "auto" : "smooth",
+          block: "start",
+        });
+      }
+    });
+  });
+})();
+
 })();
