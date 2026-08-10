@@ -1947,3 +1947,192 @@ button {
     flex-basis: 74vw;
   }
 }
+
+/* =========================================================================
+   GALERÍA FRAGATA — artistas.css
+   ========================================================================= */
+
+/* ------------------------------ Intro de página ------------------------------ */
+.page-header__lead {
+  max-width: 640px;
+  margin: 1rem auto 0;
+  color: var(--text-dim);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+/* ------------------------------ Contenedor de filas ------------------------------ */
+.disc-showcase {
+  padding-bottom: clamp(2rem, 5vw, 3.5rem);
+}
+
+.disc-showcase__rows {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2.25rem, 5vw, 3.25rem);
+}
+
+.disc-showcase__row[hidden] {
+  display: none;
+}
+
+.disc-showcase__head {
+  max-width: var(--maxw);
+  margin: 0 auto 1rem;
+  padding: 0 var(--gutter);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.disc-showcase__label {
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.disc-showcase__link {
+  flex-shrink: 0;
+  font-size: 0.85rem;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 2px;
+}
+
+/* ------------------------------ Carrusel continuo (marquee) -------------------------*/
+.marquee {
+  overflow-x: auto;
+  overflow-y: hidden;
+  cursor: grab;
+  -webkit-user-select: none;
+  user-select: none;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  touch-action: pan-y;
+
+  /* Fade en los bordes: sugiere que el contenido continúa fuera de pantalla */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black var(--gutter),
+    black calc(100% - var(--gutter)),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black var(--gutter),
+    black calc(100% - var(--gutter)),
+    transparent 100%
+  );
+}
+
+.marquee::-webkit-scrollbar {
+  display: none;
+}
+
+.marquee:active,
+.marquee.is-dragging {
+  cursor: grabbing;
+}
+
+.marquee:focus-visible {
+  outline: 1px solid var(--white);
+  outline-offset: 4px;
+}
+
+.marquee__track {
+  display: flex;
+  gap: 1.4rem;
+  list-style: none;
+  width: max-content;
+  padding: 0.5rem var(--gutter) 1rem;
+}
+
+.marquee__item {
+  flex: 0 0 auto;
+}
+
+/* ------------------------------ Tarjeta de obra (marquee) ------------------------------ */
+.marquee-card {
+  display: block;
+  width: clamp(210px, 20vw, 280px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--bg-card);
+  transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+}
+
+.marquee-card:hover,
+.marquee-card:focus-visible {
+  border-color: var(--white);
+  transform: translateY(-4px);
+}
+
+.marquee-card__media {
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background-color: var(--bg-elev);
+}
+
+.marquee-card__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease), filter 0.6s var(--ease);
+}
+
+.marquee-card:hover .marquee-card__photo,
+.marquee-card:focus-visible .marquee-card__photo {
+  transform: scale(1.06);
+  filter: brightness(1.12);
+}
+
+.marquee-card__body {
+  padding: 0.85rem 1rem 1.05rem;
+}
+
+.marquee-card__artist {
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 0.3rem;
+}
+
+.marquee-card__title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.marquee-card__disc {
+  font-size: 0.78rem;
+  color: var(--text-faint);
+  font-style: italic;
+  margin-top: 0.25rem;
+}
+
+/* ------------------------------ Responsive ------------------------------ */
+@media (max-width: 768px) {
+  .disc-showcase__head {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .marquee-card {
+    width: clamp(170px, 55vw, 220px);
+  }
+}
+
+/* ------------------------------ Reduced motion ----------------------*/
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    scroll-behavior: auto;
+  }
+}

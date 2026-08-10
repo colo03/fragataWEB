@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Artistas — Galería Fragata</title>
+  <meta name="description" content="Directorio completo de artistas de Galería Fragata: pintura, fotografía, instalación, escultura y performance. Buscá por artista, obra, disciplina o técnica." />
+
+  <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+
+  <meta property="og:title" content="Artistas — Galería Fragata" />
+  <meta property="og:description" content="Directorio completo de artistas de Galería Fragata." />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Caveat:wght@500;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/artistas.css" />
+</head>
+<body>
+
+  <a href="#directorio" class="skip-link">Saltar al contenido</a>
+
+  <header class="nav is-scrolled" id="nav">
+    <div class="nav__inner">
+      <a href="index.html#inicio" class="nav__brand" aria-label="Galería Fragata — inicio">
+        <img src="assets/isotipo_white.png" alt="" class="nav__flag" />
+        <img src="assets/fragata_white.png" alt="Galería Fragata" class="nav__wordmark" />
+      </a>
+
+      <nav class="nav__links" id="navLinks" aria-label="Navegación principal">
+        <a href="index.html#inicio" class="nav__link">Inicio</a>
+        <a href="artistas.html" class="nav__link is-active">Artistas</a>
+        <a href="index.html#nosotros" class="nav__link">Nosotros</a>
+        <a href="eventos.html" class="nav__link">Eventos</a>
+        <a href="index.html#contacto" class="nav__link nav__link--cta">Contacto</a>
+      </nav>
+
+      <button class="nav__toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ------------------------------ Encabezado -------------------------------->
+    <header class="page-header">
+      <div class="page-header__inner">
+        <p class="section-label" data-reveal>Directorio completo</p>
+        <h1 class="section-title" data-reveal>Nuestros Artistas</h1>
+        <p class="page-header__lead" data-reveal>
+          Pintura, fotografía, instalación, escultura y performance conviven en un mismo
+          espacio itinerante. Recorré una selección en movimiento o buscá directamente
+          por nombre, disciplina o técnica.
+        </p>
+      </div>
+    </header>
+
+    <!------------------------- Carruseles zigzag por disciplina ---------------->
+    <section class="disc-showcase" aria-label="Selección de obras por disciplina">
+      <div class="section-head">
+        <div>
+          <p class="section-label" data-reveal>Selección</p>
+          <h2 class="section-title" data-reveal>Un vistazo amplio a la galería</h2>
+        </div>
+      </div>
+
+      <div class="disc-showcase__rows">
+
+        <!-- Pintura → se desplaza hacia la derecha -->
+        <div class="disc-showcase__row" data-reveal>
+          <div class="disc-showcase__head">
+            <h3 class="disc-showcase__label">Pintura</h3>
+            <button type="button" class="link-arrow disc-showcase__link" data-filter-link="Pintura">
+              Ver en el directorio <span aria-hidden="true">→</span>
+            </button>
+          </div>
+          <div
+            class="marquee"
+            data-marquee
+            data-marquee-group="pintura"
+            data-direction="right"
+            tabindex="0"
+            role="group"
+            aria-label="Obras de pintura, desplazamiento continuo. Arrastrá para navegar manualmente."
+          >
+            <ul class="marquee__track" data-marquee-track></ul>
+          </div>
+        </div>
+
+        <!-- Fotografía ← se desplaza hacia la izquierda -->
+        <div class="disc-showcase__row" data-reveal>
+          <div class="disc-showcase__head">
+            <h3 class="disc-showcase__label">Fotografía</h3>
+            <button type="button" class="link-arrow disc-showcase__link" data-filter-link="Fotografía">
+              Ver en el directorio <span aria-hidden="true">→</span>
+            </button>
+          </div>
+          <div
+            class="marquee"
+            data-marquee
+            data-marquee-group="fotografia"
+            data-direction="left"
+            tabindex="0"
+            role="group"
+            aria-label="Obras de fotografía, desplazamiento continuo. Arrastrá para navegar manualmente."
+          >
+            <ul class="marquee__track" data-marquee-track></ul>
+          </div>
+        </div>
+
+        <!-- Instalación / Escultura → se desplaza hacia la derecha -->
+        <div class="disc-showcase__row" data-reveal>
+          <div class="disc-showcase__head">
+            <h3 class="disc-showcase__label">Instalación / Escultura</h3>
+            <button type="button" class="link-arrow disc-showcase__link" data-filter-link="Instalación">
+              Ver en el directorio <span aria-hidden="true">→</span>
+            </button>
+          </div>
+          <div
+            class="marquee"
+            data-marquee
+            data-marquee-group="instalacion-escultura"
+            data-direction="right"
+            tabindex="0"
+            role="group"
+            aria-label="Obras de instalación y escultura, desplazamiento continuo. Arrastrá para navegar manualmente."
+          >
+            <ul class="marquee__track" data-marquee-track></ul>
+          </div>
+        </div>
+
+        <!-- Performance ← se desplaza hacia la izquierda-->
+        <div class="disc-showcase__row" data-reveal data-marquee-row="performance">
+          <div class="disc-showcase__head">
+            <h3 class="disc-showcase__label">Performance</h3>
+            <button type="button" class="link-arrow disc-showcase__link" data-filter-link="Performance">
+              Ver en el directorio <span aria-hidden="true">→</span>
+            </button>
+          </div>
+          <div
+            class="marquee"
+            data-marquee
+            data-marquee-group="performance"
+            data-direction="left"
+            tabindex="0"
+            role="group"
+            aria-label="Obras de performance, desplazamiento continuo. Arrastrá para navegar manualmente."
+          >
+            <ul class="marquee__track" data-marquee-track></ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- --------------Directorio + buscador ------------>
+    <section class="artists" id="directorio">
+      <div class="section-head">
+        <div>
+          <p class="section-label" data-reveal>Directorio</p>
+          <h2 class="section-title" data-reveal>Buscá por artista o disciplina</h2>
+        </div>
+      </div>
+
+      <div class="artists-filter" data-reveal>
+        <div class="artists-filter__search">
+          <input
+            type="text"
+            id="artistSearch"
+            placeholder="Buscar por artista, obra, disciplina o técnica..."
+            aria-label="Buscar artistas"
+          />
+        </div>
+
+        <div class="artists-filter__controls">
+          <select id="filterDiscipline" class="filter-select" aria-label="Filtrar por disciplina">
+            <option value="all">Todas</option>
+            <option value="Pintura">Pintura</option>
+            <option value="Fotografía">Fotografía</option>
+            <option value="Instalación">Instalación</option>
+            <option value="Escultura">Escultura</option>
+          </select>
+
+          <button type="button" id="btnSortToggle" class="filter-btn-toggle" aria-label="Cambiar orden de artistas">
+            <span class="icon">↓</span> <span id="labelSort">Artista: A - Z</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="artists__grid" id="artistsGrid">
+        <!-- Renderizado por js/main.js -->
+      </div>
+
+      <div class="artists__empty" id="artistsEmpty" style="display: none;">
+        <p>No se encontraron artistas con los criterios seleccionados.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <img src="assets/isologo_white.png" alt="Galería Fragata" class="footer__logo" />
+        <p class="footer__tagline">Galería itinerante nocturna</p>
+      </div>
+
+      <nav class="footer__nav" aria-label="Navegación de pie">
+        <a href="index.html#inicio">Inicio</a>
+        <a href="artistas.html">Artistas</a>
+        <a href="index.html#nosotros">Nosotros</a>
+        <a href="eventos.html">Eventos</a>
+        <a href="index.html#contacto">Contacto</a>
+      </nav>
+
+      <div class="footer__contact">
+        <a href="mailto:[correo@fragata.com]">[correo@fragata.com]</a>
+        <a href="#" aria-label="Instagram">Instagram ↗</a>
+        <a href="#" aria-label="WhatsApp">[+54 9 ...] ↗</a>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <span>© <span id="year">2026</span> Galería Fragata. [Todos los derechos reservados].</span>
+      <span>Sitio en construcción — template base</span>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/artistas-marquee.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
