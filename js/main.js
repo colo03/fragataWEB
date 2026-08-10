@@ -353,7 +353,7 @@
       cloneIndex === 0 ? "" : ' aria-hidden="true" tabindex="-1"';
     return `
       <li class="marquee__item"${cloneIndex === 0 ? "" : ' aria-hidden="true"'}>
-        <a class="marquee-card" href="${e(workUrl(work, artist))}"${hiddenAttrs}>
+        <a class="marquee-card" href="${e(workUrl(work, artist))}" draggable="false"${hiddenAttrs}>
           <div class="marquee-card__media">
             ${media(
               work.photo,
@@ -405,9 +405,15 @@
     let hoverPaused = false;
     let offscreenPaused = !prefersReduced ? false : true;
     let isDragging = false;
+    let pointerDown = false;
+    let suppressClick = false;
     let dragStartX = 0;
     let dragStartScroll = 0;
     let rafId = null;
+
+    // Menos que esto es un click, no un arrastre: si no, el pointer capture
+    // se queda con el evento y la tarjeta nunca navega a la obra.
+    const DRAG_THRESHOLD = 5;
 
     const measure = () => {
       singleWidth = track.scrollWidth / 3;
@@ -448,26 +454,56 @@
     viewport.addEventListener("touchcancel", () => (hoverPaused = false));
 
     // Arrastre con mouse/touch (Pointer Events cubre ambos casos).
+    // El arrastre recién empieza cuando el dedo/cursor se movió de verdad:
+    // hasta entonces el evento sigue su curso normal y el click llega al <a>.
     viewport.addEventListener("pointerdown", (ev) => {
-      isDragging = true;
-      viewport.classList.add("is-dragging");
+      if (ev.button !== undefined && ev.button !== 0) return;
+      pointerDown = true;
       dragStartX = ev.clientX;
       dragStartScroll = viewport.scrollLeft;
-      viewport.setPointerCapture?.(ev.pointerId);
     });
 
     viewport.addEventListener("pointermove", (ev) => {
-      if (!isDragging) return;
-      viewport.scrollLeft = dragStartScroll - (ev.clientX - dragStartX);
+      if (!pointerDown) return;
+      const delta = ev.clientX - dragStartX;
+
+      if (!isDragging) {
+        if (Math.abs(delta) < DRAG_THRESHOLD) return;
+        isDragging = true;
+        viewport.classList.add("is-dragging");
+        viewport.setPointerCapture?.(ev.pointerId);
+      }
+
+      viewport.scrollLeft = dragStartScroll - delta;
     });
 
-    const endDrag = () => {
+    const endDrag = (ev) => {
+      if (isDragging) {
+        // Soltar después de arrastrar no debe navegar a la obra.
+        suppressClick = true;
+        if (ev && viewport.hasPointerCapture?.(ev.pointerId)) {
+          viewport.releasePointerCapture(ev.pointerId);
+        }
+      }
+      pointerDown = false;
       isDragging = false;
       viewport.classList.remove("is-dragging");
     };
     viewport.addEventListener("pointerup", endDrag);
     viewport.addEventListener("pointercancel", endDrag);
     viewport.addEventListener("pointerleave", endDrag);
+
+    // Se cancela sólo el click que cierra un arrastre; el click limpio pasa.
+    viewport.addEventListener(
+      "click",
+      (ev) => {
+        if (!suppressClick) return;
+        suppressClick = false;
+        ev.preventDefault();
+        ev.stopPropagation();
+      },
+      true
+    );
 
     // Pausa cuando la fila sale de pantalla, para no gastar CPU de más.
     if ("IntersectionObserver" in window) {

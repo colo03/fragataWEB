@@ -2033,6 +2033,13 @@ button {
   display: none;
 }
 
+/* Sin esto el navegador arranca su drag&drop nativo de la imagen y se come
+   el click que lleva al perfil de la obra. */
+.marquee img {
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+
 .marquee:active,
 .marquee.is-dragging {
   cursor: grabbing;
