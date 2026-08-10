@@ -12,16 +12,21 @@
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-
-  <!-- Header / Navbar -->
-  <nav class="nav">
+<div class="preloader" id="preloader" aria-hidden="true">
+  <img src="assets/isotipo_white.png" alt="" class="preloader__flag" />
+</div>
+  <main>
+    <!-- Encabezado de la página -->
+<!-- Header / Navbar Unificado -->
+  <header class="nav is-scrolled" id="nav">
     <div class="nav__inner">
-      <a href="index.html" class="nav__brand">
-        <img src="assets/isologo_white.png" alt="Fragata" class="nav__flag" />
+      <a href="index.html#inicio" class="nav__brand" aria-label="Galería Fragata — inicio">
+        <img src="assets/isotipo_white.png" alt="" class="nav__flag" />
         <img src="assets/fragata_white.png" alt="Galería Fragata" class="nav__wordmark" />
       </a>
-      <div class="nav__links">
-        <a href="index.html" class="nav__link">Inicio</a>
+
+      <nav class="nav__links" id="navLinks" aria-label="Navegación principal">
+        <a href="index.html#inicio" class="nav__link">Inicio</a>
         <a href="artistas.html" class="nav__link">Artistas</a>
         <a href="eventos.html" class="nav__link is-active">Eventos</a>
         <a href="index.html#contacto" class="nav__link nav__link--cta">Contacto</a>
@@ -30,16 +35,7 @@
       <button class="nav__toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
       </button>
     </div>
-  </nav>
-
-  <main>
-    <!-- Encabezado de la página -->
-    <header class="page-header">
-      <div class="page-header__inner">
-        <p class="section-label">Bitácora de muestras & fechas</p>
-        <h1 class="section-title">Agenda & Cronología</h1>
-      </div>
-    </header>
+  </header>
 
     <!-- EVENTO DESTACADO (Próximo / En Curso) -->
     <section class="featured-event">
@@ -182,6 +178,7 @@
       <p>&copy; Galería Fragata. Todos los derechos reservados.</p>
     </div>
   </footer>
-
-</body>
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>  
 </html>
