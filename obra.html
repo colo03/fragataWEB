@@ -102,7 +102,9 @@
               </p>
             </div>
 
-            <form class="interest__form" id="interestFormEl" novalidate>
+            <form class="interest__form" id="interestFormEl" name="interest-obra" novalidate data-netlify="true" netlify-honeypot="bot-field">
+              <input type="hidden" name="form-name" value="interest-obra" />
+              <p hidden><label>No completar: <input name="bot-field" /></label></p>
               <div class="field">
                 <label for="f-nombre">Nombre y apellido</label>
                 <input type="text" id="f-nombre" name="nombre" autocomplete="name" placeholder="Nombre y apellido" required />
@@ -126,6 +128,10 @@
               <!-- Referencia — la completa obra.js para saber por cuál escriben -->
               <input type="hidden" name="obra" id="fieldObra" value="" />
               <input type="hidden" name="artista" id="fieldArtista" value="" />
+
+              <p class="interest__error" id="interestError" role="alert" hidden>
+                No pudimos enviar la consulta. Revisá tu conexión y probá de nuevo.
+              </p>
 
               <div class="interest__actions">
                 <button type="submit" class="btn btn--primary">Enviar consulta</button>
@@ -217,6 +223,7 @@
   </footer>
 
   <script src="js/data.js"></script>
+  <script src="js/fragata.js"></script>
   <script src="js/carrusel.js"></script>
   <script src="js/obra.js"></script>
   <script src="js/main.js"></script>

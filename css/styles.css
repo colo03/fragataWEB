@@ -1189,6 +1189,13 @@ button {
   font-size: 0.78rem;
   color: var(--text-faint);
 }
+.interest__error {
+  grid-column: 1 / -1;
+  font-size: 0.85rem;
+  color: var(--text);
+  border-left: 2px solid var(--accent);
+  padding-left: 0.75rem;
+}
 .interest__done[hidden] {
   display: none;
 }
