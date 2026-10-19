@@ -1,0 +1,17 @@
+# Configuración de Netlify — ver docs/handoff-produccion.md §8.
+# Cada deploy a producción (push a main o "Publicar cambios" desde la hoja)
+# cuesta 15 créditos. Las ramas y los PRs tienen deploy preview gratis.
+
+[build]
+  command = "node scripts/build-paginas.js"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"

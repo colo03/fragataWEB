@@ -1,0 +1,7 @@
+# Salida del build (scripts/build-paginas.js)
+dist/
+
+# Netlify CLI
+.netlify/
+
+node_modules/
