@@ -142,7 +142,7 @@ Nada de esto depende de Sheets. Se puede hacer en paralelo.
       atributo: ver "Cómo conectar los formularios" en el §8.
 - [ ] **Conectar el formulario de newsletter** del index (`onsubmit="return false"`
       y otro `preventDefault` con éxito simulado en `main.js`).
-- [ ] **Separar los helpers de `data.js`** a `js/fragata.js` (ver aviso del §3).
+- [x] **Separar los helpers de `data.js`** a `js/fragata.js` (ver aviso del §3).
       Es mover un bloque y agregar un `<script>` en tres páginas.
 - [ ] **Reemplazar los datos de contacto.** `[correo@fragata.com]` y `[+54 9 ...]`
       aparecen literales en el footer de las cuatro páginas.
@@ -559,7 +559,46 @@ Lo que hay que ajustar en el código para que esto funcione:
       si existe un archivo en esa ruta (lo llama *shadowing*), y `artista.html`
       y `obra.html` siguen existiendo en `dist/`. Sin el `!` la regla nunca se
       dispara. Probarlo en un deploy preview con un link viejo.
-- [ ] Agregar `dist/` al `.gitignore`.
+- [x] Agregar `dist/` al `.gitignore`.
+
+### Estado del build (octubre 2026)
+
+Ya está en el repo la **primera parte** del build, sin la generación de
+páginas por artista y obra:
+
+- [`scripts/build-paginas.js`](../scripts/build-paginas.js) arma `dist/` con
+  lo público (punto 1 de arriba), carga `data.js` con `vm` y **valida el
+  contrato del §3**: slugs válidos y únicos, `name`, `discipline`, `bio` como
+  array, `works` como array, `title` en cada obra. Si algo falla, sale con
+  código 1 y Netlify no publica. También avisa (sin frenar) de `href`/`src`
+  locales que apuntan a archivos inexistentes.
+- [`netlify.toml`](../netlify.toml) configura build command, `publish = "dist"`,
+  `NODE_VERSION = "20"` y headers básicos de seguridad.
+
+**El script nunca se corrió.** Se escribió en una máquina sin Node. Antes de
+seguir, desde una computadora con Node 18+:
+
+- [ ] Correr `node scripts/build-paginas.js` desde la raíz y confirmar que
+      termina con `✓ dist/ listo: ...`.
+- [ ] Servir `dist/` (`python -m http.server -d dist`) y recorrer las páginas.
+- [ ] Revisar los avisos de referencias rotas. Al escribir esto ya se sabe de
+      tres archivos que los HTML cargan pero **no están en el repo**:
+      `css/artistas.css` y `js/artistas-marquee.js` (en `artistas.html`) y
+      `css/eventos-detalle.css` (en `evento.html` y `eventoproximo.html`).
+      Probablemente quedaron sin commitear en la máquina de quien hizo esas
+      páginas. Online van a dar 404.
+
+**Siguiente paso del build:** la generación de páginas (puntos 2 a 5 de arriba)
+y los ajustes de código de la lista. El script tiene marcado dónde va.
+
+**En el panel de Netlify** (requiere la cuenta, no se hace desde el código):
+
+- [ ] *Add new site → Import from Git* con `colo03/fragataWEB`. Build command
+      y directorio salen solos del `netlify.toml`.
+- [ ] *Site configuration → Forms*: activar la detección de formularios. Sin
+      eso, los envíos no llegan aunque el HTML esté bien.
+- [ ] Probar el formulario de consulta en el deploy preview del PR y confirmar
+      que llega el mail.
 
 Si en algún momento el build falla, Netlify no publica, el sitio anterior sigue
 online y el intento fallido no consume créditos. El build tiene que **fallar a
