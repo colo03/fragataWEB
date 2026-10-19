@@ -205,7 +205,9 @@
           <p class="contact__lead" data-reveal>
             [Placeholder] Dejanos tu correo y te avisamos dónde y cuándo abrimos la próxima noche.
           </p>
-          <form class="contact__form" data-reveal onsubmit="return false;">
+          <form class="contact__form" name="newsletter" data-reveal data-netlify="true" netlify-honeypot="bot-field">
+            <input type="hidden" name="form-name" value="newsletter" />
+            <p hidden><label>No completar: <input name="bot-field" /></label></p>
             <input type="email" name="email" placeholder="tu@correo.com" aria-label="Correo electrónico" required />
             <button type="submit" class="btn btn--primary">Quiero enterarme</button>
           </form>
@@ -261,6 +263,7 @@
   </footer>
 
   <script src="js/data.js"></script>
+  <script src="js/fragata.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

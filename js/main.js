@@ -139,19 +139,32 @@
     );
   }
 
-  /* -------------------- Form de newsletter (demo) -------------------- */
+  /* -------------------- Envío de formularios (Netlify Forms) -------------------- */
+  // Netlify recibe los POST a "/" con el campo form-name. Devuelve true si llegó.
+  const sendForm = (formEl) =>
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(new FormData(formEl)).toString(),
+    })
+      .then((res) => res.ok)
+      .catch(() => false);
+
+  /* -------------------- Form de newsletter -------------------- */
   const form = document.querySelector(".contact__form");
   if (form) {
-    form.addEventListener("submit", (e) => {
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      const input = form.querySelector("input");
+      const input = form.querySelector('input[type="email"]');
       const btn = form.querySelector("button");
-      if (input && input.value) {
-        // TODO: conectar con servicio real (Formspree / backend / Mailchimp).
-        btn.textContent = "¡Listo! ✓";
-        input.value = "";
-        setTimeout(() => (btn.textContent = "Quiero enterarme"), 2500);
-      }
+      if (!input || !input.value) return;
+
+      btn.disabled = true;
+      const ok = await sendForm(form);
+      btn.disabled = false;
+      btn.textContent = ok ? "¡Listo! ✓" : "No se pudo enviar, probá de nuevo";
+      if (ok) input.value = "";
+      setTimeout(() => (btn.textContent = "Quiero enterarme"), 2500);
     });
   }
 
@@ -186,13 +199,27 @@
     if (cancelBtn) cancelBtn.addEventListener("click", closeInterest);
 
     if (formEl) {
-      formEl.addEventListener("submit", (e) => {
+      const errorEl = document.getElementById("interestError");
+      const submitBtn = formEl.querySelector('button[type="submit"]');
+
+      formEl.addEventListener("submit", async (e) => {
         e.preventDefault();
         if (!formEl.checkValidity()) {
           formEl.reportValidity();
           return;
         }
-        // TODO: conectar con servicio real (Formspree / backend / email).
+
+        submitBtn.disabled = true;
+        if (errorEl) errorEl.hidden = true;
+        const ok = await sendForm(formEl);
+        submitBtn.disabled = false;
+
+        // Si falla, el formulario queda con los datos cargados para reintentar.
+        if (!ok) {
+          if (errorEl) errorEl.hidden = false;
+          return;
+        }
+
         formEl.hidden = true;
         if (doneEl) {
           doneEl.hidden = false;
