@@ -2044,7 +2044,6 @@ button {
    el click que lleva al perfil de la obra. */
 .marquee img {
   -webkit-user-drag: none;
-  user-drag: none;
 }
 
 .marquee:active,
@@ -2148,5 +2147,515 @@ button {
 @media (prefers-reduced-motion: reduce) {
   .marquee {
     scroll-behavior: auto;
+  }
+}
+
+/* =====================================================================
+   GALERÍA FRAGATA — eventos-detalle.css - evento.html y eventoproximo.html
+   ===================================================================== */
+
+/* ------------------------------ Hero / Header del evento ------------------------------ */
+.event-header {
+  padding-top: calc(var(--nav-h) + clamp(2rem, 6vw, 3.5rem));
+  padding-bottom: clamp(3rem, 7vw, 4.5rem);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.event-header__inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(2rem, 6vw, 4rem);
+  align-items: center;
+}
+
+.event-header__copy .breadcrumb {
+  margin-bottom: clamp(1.25rem, 3vw, 2rem);
+}
+
+.event-header__title {
+  font-size: clamp(2.1rem, 5.5vw, 3.6rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.03;
+  margin-bottom: clamp(1.5rem, 3vw, 2rem);
+}
+
+.event-header__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: clamp(1.5rem, 3vw, 2rem);
+}
+
+.event-header__media {
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius);
+}
+
+/* ------------------------------ Badge de estado ------------------------------
+   Base compartida .event-badge + modificador según el estado del evento. */
+.event-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.45em 1.1em;
+  border-radius: 100px;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 700;
+  border: 1px solid var(--line);
+}
+
+.event-badge::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+.event-badge--live {
+  background: var(--white);
+  color: var(--black);
+  border-color: var(--white);
+}
+.event-badge--live::before {
+  animation: eventPulse 1.6s var(--ease) infinite;
+}
+
+.event-badge--past {
+  background: transparent;
+  color: var(--text-dim);
+  border-color: var(--line);
+}
+
+@keyframes eventPulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.75);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .event-badge--live::before {
+    animation: none;
+  }
+}
+
+/* ------------------------------ Cuenta regresiva (sólo próxima edición) ------------------------------ */
+.event-countdown {
+  display: flex;
+  gap: clamp(1rem, 3vw, 1.5rem);
+  margin: clamp(1.25rem, 3vw, 2rem) 0;
+}
+
+.event-countdown[hidden] {
+  display: none;
+}
+
+.event-countdown__unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 54px;
+}
+
+.event-countdown__value {
+  font-family: var(--font-hand);
+  font-size: clamp(1.9rem, 4vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.event-countdown__label {
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-top: 0.35rem;
+}
+
+/* ------------------------------ Ficha de datos (fecha / sede / curaduría) ------------------------------ */
+.event-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem 2.5rem;
+}
+
+.event-details dt {
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 0.35rem;
+}
+
+.event-details dd {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* ------------------------------ Texto curatorial ------------------------------ */
+.event-about {
+  padding: clamp(3rem, 7vw, 4.5rem) 0;
+}
+
+.event-about__inner {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  text-align: center;
+}
+
+.event-about__text {
+  color: var(--text-dim);
+  font-size: 1.08rem;
+  line-height: 1.75;
+}
+
+/* ------------------------------ Line-up / Ficha técnica de artistas ------------------------------
+   Misma clase .artist-roster en las dos páginas: en la próxima edición
+   son "confirmados / a confirmar", en el archivo es la nómina final. */
+.artist-roster {
+  padding-bottom: clamp(3rem, 7vw, 4.5rem);
+}
+
+.artist-roster__list {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.artist-roster__link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 1.1rem 1.3rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+}
+
+.artist-roster__link:hover,
+.artist-roster__link:focus-visible {
+  border-color: var(--white);
+  transform: translateY(-3px);
+}
+
+.artist-roster__name {
+  font-weight: 700;
+  font-size: 1.02rem;
+}
+
+.artist-roster__discipline {
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* Artista todavía no confirmado: mismo tamaño de tarjeta, borde punteado */
+.artist-roster__item--tbc {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: 1.1rem 1.3rem;
+  border: 1px dashed var(--line-soft);
+  border-radius: var(--radius);
+  color: var(--text-faint);
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+/* ------------------------------ Formulario de inscripción (sólo eventoproximo.html) ------------------------------ */
+.event-signup {
+  padding: clamp(3rem, 7vw, 4.5rem) 0;
+  background: var(--bg-elev);
+  border-top: 1px solid var(--line-soft);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.event-signup__inner {
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.event-signup__form {
+  display: grid;
+  gap: 1.1rem;
+  margin-top: clamp(1.5rem, 3vw, 2rem);
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-field label {
+  font-size: 0.76rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  font-weight: 600;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 0.85em 1em;
+  color: var(--text);
+  font: inherit;
+  transition: border-color 0.25s var(--ease);
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  outline: none;
+  border-color: var(--white);
+}
+
+.form-field textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+.event-signup__actions {
+  margin-top: 0.5rem;
+}
+
+.event-signup__note {
+  font-size: 0.82rem;
+  color: var(--text-faint);
+  margin-top: 1.25rem;
+}
+
+.event-signup__success {
+  margin-top: clamp(1.5rem, 3vw, 2rem);
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  font-size: 0.95rem;
+}
+
+.event-signup__success[hidden] {
+  display: none;
+}
+
+/* ------------------------------ Ubicación (sólo eventoproximo.html) ------------------------------ */
+.event-location {
+  padding: clamp(3rem, 7vw, 4.5rem) 0;
+}
+
+.event-location__inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 3rem);
+  align-items: center;
+}
+
+.event-location__map {
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+
+.event-location__map iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  /* Aproxima el mapa a la paleta oscura del sitio sin depender de un tema
+     nativo del proveedor del mapa. */
+  filter: grayscale(0.4) invert(0.92) contrast(0.9);
+}
+
+.event-location__note {
+  font-size: 0.85rem;
+  color: var(--text-faint);
+  margin-top: 1rem;
+  font-style: italic;
+}
+
+/* ------------------------------ Galería de registro (sólo evento.html) ------------------------------
+   Masonry vía CSS multi-columna (sin librerías ni JS de layout). */
+.event-gallery {
+  padding: clamp(3rem, 7vw, 4.5rem) 0;
+}
+
+.event-gallery__inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.event-gallery__grid {
+  columns: 3 260px;
+  column-gap: 1rem;
+}
+
+.event-gallery__item {
+  display: block;
+  width: 100%;
+  break-inside: avoid;
+  margin-bottom: 1rem;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  cursor: zoom-in;
+  transition: border-color 0.3s var(--ease);
+}
+
+.event-gallery__item:hover,
+.event-gallery__item:focus-visible {
+  border-color: var(--white);
+}
+
+.event-gallery__item img {
+  width: 100%;
+  display: block;
+  transition: transform 0.5s var(--ease), filter 0.5s var(--ease);
+}
+
+.event-gallery__item:hover img,
+.event-gallery__item:focus-visible img {
+  transform: scale(1.04);
+  filter: brightness(1.08);
+}
+
+/* Asimetría del masonry: cada foto de registro tiene una altura propia.
+   Con fotos reales esto lo resuelve solo el aspect-ratio de cada imagen;
+   estos valores son sólo para que el placeholder rayado ya se vea con
+   el ritmo asimétrico pedido. */
+.event-gallery__item[data-placeholder] {
+  aspect-ratio: unset;
+}
+.event-gallery__item[data-placeholder]:nth-child(4n + 1) {
+  height: 320px;
+}
+.event-gallery__item[data-placeholder]:nth-child(4n + 2) {
+  height: 220px;
+}
+.event-gallery__item[data-placeholder]:nth-child(4n + 3) {
+  height: 380px;
+}
+.event-gallery__item[data-placeholder]:nth-child(4n + 4) {
+  height: 260px;
+}
+
+/* ------------------------------ Lightbox de la galería (evento.js) ------------------------------ */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1.25rem, 5vw, 3rem);
+  background: rgba(5, 5, 5, 0.92);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s var(--ease);
+}
+
+.lightbox.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox__img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: var(--radius);
+}
+
+.lightbox__close,
+.lightbox__prev,
+.lightbox__next {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--text);
+  background: rgba(10, 10, 10, 0.6);
+  transition: border-color 0.25s var(--ease);
+}
+
+.lightbox__close:hover,
+.lightbox__prev:hover,
+.lightbox__next:hover {
+  border-color: var(--white);
+}
+
+.lightbox__close {
+  top: 1.5rem;
+  right: 1.5rem;
+}
+
+.lightbox__prev {
+  left: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.lightbox__next {
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* ------------------------------ Responsive ------------------------------ */
+@media (max-width: 860px) {
+  .event-header__inner {
+    grid-template-columns: 1fr;
+  }
+  .event-header__media {
+    order: -1;
+  }
+  .event-location__inner {
+    grid-template-columns: 1fr;
+  }
+  .event-gallery__grid {
+    columns: 2 220px;
+  }
+}
+
+@media (max-width: 520px) {
+  .event-gallery__grid {
+    columns: 1;
+  }
+  .lightbox__prev,
+  .lightbox__next {
+    width: 38px;
+    height: 38px;
   }
 }

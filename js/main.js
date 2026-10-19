@@ -78,27 +78,40 @@
     }
   }
 
-  /* -------------------- Scrollspy: link activo del nav -------------------- */
+/* -------------------- Scrollspy: link activo del nav -------------------- */
   const sections = document.querySelectorAll("main section[id]");
   const linkMap = new Map();
+  
+  // Mapeamos los links, pero EXCLUIMOS el de Inicio para que quede siempre activo en el index
   document.querySelectorAll(".nav__link").forEach((link) => {
     const id = link.getAttribute("href");
-    if (id && id.startsWith("#")) linkMap.set(id.slice(1), link);
+    if (id && id.startsWith("#") && id !== "#inicio") {
+      linkMap.set(id.slice(1), link);
+    }
   });
 
-  if (sections.length && "IntersectionObserver" in window) {
+  const path = window.location.pathname;
+  // Detectamos si estamos en una subpágina para no ejecutar el scrollspy del index
+  const isSubpage = path.includes("artista") || path.includes("obra") || path.includes("evento");
+
+  if (sections.length && "IntersectionObserver" in window && !isSubpage) {
     const spy = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
+            // 1. Limpiamos los links de las secciones (Nosotros, Artistas, Eventos, Contacto)
             linkMap.forEach((l) => l.classList.remove("is-active"));
+            
+            // 2. Activamos solo el link de la sección que estamos viendo
             const active = linkMap.get(entry.target.id);
             if (active) active.classList.add("is-active");
           }
         });
       },
-      { threshold: 0.5, rootMargin: `-${80}px 0px -40% 0px` }
+      // Umbral ajustado: Detecta cuando el borde superior de la sección cruza el 30% de la pantalla
+      { threshold: 0, rootMargin: "-30% 0px -70% 0px" } 
     );
+    
     sections.forEach((s) => spy.observe(s));
   }
 
@@ -302,6 +315,29 @@
     // Event Listeners
     artistSearch.addEventListener("input", updateView);
     filterDiscipline.addEventListener("change", updateView);
+
+    // NUEVO: Funcionalidad para las píldoras de filtro
+    const filterBtns = document.querySelectorAll(".filter-btn");
+    filterBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        // 1. Cambiar estilo activo
+        filterBtns.forEach(b => b.classList.remove("filter-btn--active"));
+        btn.classList.add("filter-btn--active");
+        
+        // 2. Mapear el valor al select oculto y disparar el filtro
+        let filterValue = btn.getAttribute("data-filter");
+        if (filterValue === "all") filterValue = "all";
+        else if (filterValue === "escultura") filterValue = "Escultura";
+        else if (filterValue === "pintura") filterValue = "Pintura";
+        else if (filterValue === "fotografia") filterValue = "Fotografía";
+        else if (filterValue === "digital") filterValue = "Instalación"; // Adaptar según tu data
+
+        if (filterDiscipline) {
+          filterDiscipline.value = filterValue;
+          updateView();
+        }
+      });
+    });
 
     btnSortToggle.addEventListener("click", () => {
       currentSortOrder = currentSortOrder === "asc" ? "desc" : "asc";

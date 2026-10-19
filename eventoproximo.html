@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Próxima Edición — Galería Fragata</title>
+  <meta name="description" content="Reservá tu lugar en la próxima edición de Galería Fragata: fecha, sede, artistas confirmados y cómo participar." />
+
+  <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+
+  <meta property="og:title" content="Próxima Edición — Galería Fragata" />
+  <meta property="og:description" content="Reservá tu lugar en la próxima edición de Galería Fragata." />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Caveat:wght@500;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+  <!-- Compartido con evento.html: no tocar acá cuando la edición cierre. -->
+  <link rel="stylesheet" href="css/eventos-detalle.css" />
+</head>
+<body>
+
+  <a href="#inscripcion" class="skip-link">Saltar al contenido</a>
+
+  <header class="nav is-scrolled" id="nav">
+    <div class="nav__inner">
+      <a href="index.html#inicio" class="nav__brand" aria-label="Galería Fragata — inicio">
+        <img src="assets/isotipo_white.png" alt="" class="nav__flag" />
+        <img src="assets/fragata_white.png" alt="Galería Fragata" class="nav__wordmark" />
+      </a>
+
+      <nav class="nav__links" id="navLinks" aria-label="Navegación principal">
+        <a href="index.html#inicio" class="nav__link">Inicio</a>
+        <a href="artistas.html" class="nav__link">Artistas</a>
+        <a href="index.html#nosotros" class="nav__link">Nosotros</a>
+        <a href="eventos.html" class="nav__link is-active">Eventos</a>
+        <a href="index.html#contacto" class="nav__link nav__link--cta">Contacto</a>
+      </nav>
+
+      <button class="nav__toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============================== HERO / HEADER DEL EVENTO ==============================
+         Mismas clases que evento.html (.event-header, .event-badge, .event-details).
+         Sólo cambia el modificador del badge: acá "--live". -->
+    <section class="event-header">
+      <div class="event-header__inner">
+        <div class="event-header__copy">
+          <nav class="breadcrumb" aria-label="Ruta de navegación" data-reveal>
+            <a href="eventos.html">Eventos</a>
+            <span aria-hidden="true">/</span>
+            <span aria-current="page">[Nombre de la Próxima Exposición]</span>
+          </nav>
+
+          <span class="event-badge event-badge--live" data-reveal>Próxima Edición</span>
+
+          <h1 class="event-header__title" data-reveal>[Nombre de la Próxima Exposición]</h1>
+
+          <!-- Cuenta regresiva: la arma js/eventoproximo.js leyendo data-event-date.
+               Formato ISO 8601 (fecha y hora local del evento). -->
+          <div
+            class="event-countdown"
+            id="eventCountdown"
+            data-event-date="2026-11-15T20:00:00"
+            data-reveal
+            aria-live="polite"
+          >
+            <div class="event-countdown__unit">
+              <span class="event-countdown__value" id="cdDays">–</span>
+              <span class="event-countdown__label">Días</span>
+            </div>
+            <div class="event-countdown__unit">
+              <span class="event-countdown__value" id="cdHours">–</span>
+              <span class="event-countdown__label">Hs</span>
+            </div>
+            <div class="event-countdown__unit">
+              <span class="event-countdown__value" id="cdMinutes">–</span>
+              <span class="event-countdown__label">Min</span>
+            </div>
+            <div class="event-countdown__unit">
+              <span class="event-countdown__value" id="cdSeconds">–</span>
+              <span class="event-countdown__label">Seg</span>
+            </div>
+          </div>
+
+          <dl class="event-details" data-reveal>
+            <div>
+              <dt>Fecha & Hora</dt>
+              <dd>[Sábado 15 de Noviembre · 20:00 hs]</dd>
+            </div>
+            <div>
+              <dt>Sede</dt>
+              <dd>[Espacio Lavandería]</dd>
+            </div>
+            <div>
+              <dt>Curaduría</dt>
+              <dd>[Edición Nocturna #08]</dd>
+            </div>
+          </dl>
+
+          <!-- CTA visible desde el arranque. . -->
+          <div class="event-header__actions" data-reveal>
+            <a href="#inscripcion" class="btn btn--primary">Reservar mi lugar</a>
+            <a href="#lineup" class="btn btn--ghost">Ver line-up</a>
+          </div>
+        </div>
+
+        <div
+          class="event-header__media"
+          data-placeholder="Flyer / Visual de la próxima edición"
+          data-reveal
+          role="img"
+          aria-label="Flyer de la próxima edición"
+        ></div>
+      </div>
+    </section>
+
+    <!-- ============================== TEXTO CURATORIAL ============================== -->
+    <section class="event-about">
+      <div class="event-about__inner">
+        <p class="section-label" data-reveal>Sobre la muestra</p>
+        <p class="event-about__text" data-reveal>
+          [Placeholder] Breve descripción del concepto curatorial de la muestra, el
+          ambiente que se busca generar y las disciplinas que van a converger
+          durante la jornada. Reemplazar por el texto real de la edición.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================== LINE-UP ==============================
+         Misma clase .artist-roster que usa evento.html para la ficha técnica
+         final. Los links van directo al perfil real en artista.html. -->
+    <section class="artist-roster" id="lineup">
+      <div class="section-head">
+        <div>
+          <p class="section-label" data-reveal>Line-up</p>
+          <h2 class="section-title" data-reveal>Artistas confirmados</h2>
+        </div>
+      </div>
+
+      <ul class="artist-roster__list" data-reveal>
+        <li>
+          <a href="artista.html?slug=ana-perez" class="artist-roster__link">
+            <span class="artist-roster__name">Ana Pérez</span>
+            <span class="artist-roster__discipline">Pintura</span>
+          </a>
+        </li>
+        <li>
+          <a href="artista.html?slug=carlos-gomez" class="artist-roster__link">
+            <span class="artist-roster__name">Carlos Gómez</span>
+            <span class="artist-roster__discipline">Fotografía</span>
+          </a>
+        </li>
+        <li>
+          <a href="artista.html?slug=sofia-rossi" class="artist-roster__link">
+            <span class="artist-roster__name">Sofía Rossi</span>
+            <span class="artist-roster__discipline">Instalación</span>
+          </a>
+        </li>
+        <li>
+          <a href="artista.html?slug=javier-nunez" class="artist-roster__link">
+            <span class="artist-roster__name">Javier Núñez</span>
+            <span class="artist-roster__discipline">Escultura</span>
+          </a>
+        </li>
+        <!-- Artista todavía sin confirmar: misma grilla, tarjeta con borde punteado. -->
+        <li class="artist-roster__item--tbc">A confirmar</li>
+      </ul>
+    </section>
+
+    <!-- ============================== FORMULARIO DE INSCRIPCIÓN ==============================
+         Bloque exclusivo de eventoproximo.html. Al cerrar la edición, se
+         borra esta sección completa. -->
+    <section class="event-signup" id="inscripcion">
+      <div class="event-signup__inner">
+        <p class="section-label" data-reveal>Sumate</p>
+        <h2 class="section-title" data-reveal>Reservá tu lugar</h2>
+
+        <form class="event-signup__form" id="signupForm" data-reveal novalidate>
+          <div class="form-field">
+            <label for="signupName">Nombre y apellido</label>
+            <input type="text" id="signupName" name="nombre" autocomplete="name" required />
+          </div>
+
+          <div class="form-field">
+            <label for="signupEmail">Email</label>
+            <input type="email" id="signupEmail" name="email" autocomplete="email" required />
+          </div>
+
+          <div class="form-field">
+            <label for="signupRole">Vas a venir como...</label>
+            <select id="signupRole" name="rol" required>
+              <option value="" disabled selected>Elegí una opción</option>
+              <option value="espectador">Espectador</option>
+              <option value="artista">Artista (quiero exponer)</option>
+              <option value="prensa">Prensa</option>
+            </select>
+          </div>
+
+          <div class="form-field" id="signupArtistFieldWrap" hidden>
+            <label for="signupArtistNote">Contanos de tu obra</label>
+            <textarea
+              id="signupArtistNote"
+              name="notaArtista"
+              placeholder="Disciplina, técnica, link a portfolio..."
+            ></textarea>
+          </div>
+
+          <div class="event-signup__actions">
+            <button type="submit" class="btn btn--primary">Confirmar inscripción</button>
+          </div>
+        </form>
+
+        <p class="event-signup__note">
+          Cupos limitados. La dirección exacta se envía por email 24 hs antes del evento.
+        </p>
+
+        <div class="event-signup__success" id="signupSuccess" hidden role="status">
+          <strong>¡Listo!</strong> Ya reservamos tu lugar. Te llega un email de confirmación
+          con la dirección poco antes de la fecha.
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== UBICACIÓN ==============================
+         Bloque exclusivo de eventoproximo.html (junto con .event-signup, es
+         lo que se reemplaza por .event-gallery al archivar el evento). -->
+    <section class="event-location">
+      <div class="event-location__inner">
+        <div class="event-location__copy" data-reveal>
+          <p class="section-label">Ubicación</p>
+          <h2 class="section-title">Cómo llegar</h2>
+          <dl class="event-details">
+            <div>
+              <dt>Dirección</dt>
+              <dd>[Dirección exacta — se confirma por mail]</dd>
+            </div>
+            <div>
+              <dt>Referencia</dt>
+              <dd>[Entre calle X y calle Y, Ciudad]</dd>
+            </div>
+          </dl>
+          <p class="event-location__note">
+            [Placeholder] Al ser una galería itinerante nocturna, la ubicación exacta se
+            confirma únicamente a quienes completen el formulario de inscripción.
+          </p>
+        </div>
+
+        <div class="event-location__map" data-reveal>
+          <!-- Reemplazar el src por el embed real de Google Maps de la sede. -->
+          <iframe
+            title="Ubicación del evento"
+            src="https://www.google.com/maps?q=Buenos+Aires,+Argentina&output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <img src="assets/isologo_white.png" alt="Galería Fragata" class="footer__logo" />
+        <p class="footer__tagline">Galería itinerante nocturna</p>
+      </div>
+
+      <nav class="footer__nav" aria-label="Navegación de pie">
+        <a href="index.html#inicio">Inicio</a>
+        <a href="artistas.html">Artistas</a>
+        <a href="index.html#nosotros">Nosotros</a>
+        <a href="eventos.html">Eventos</a>
+        <a href="index.html#contacto">Contacto</a>
+      </nav>
+
+      <div class="footer__contact">
+        <a href="mailto:[correo@fragata.com]">[correo@fragata.com]</a>
+        <a href="#" aria-label="Instagram">Instagram ↗</a>
+        <a href="#" aria-label="WhatsApp">[+54 9 ...] ↗</a>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <span>© <span id="year">2026</span> Galería Fragata. [Todos los derechos reservados].</span>
+      <span>Sitio en construcción — template base</span>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/eventoproximo.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
